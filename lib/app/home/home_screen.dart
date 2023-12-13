@@ -1,7 +1,10 @@
+import 'package:eneo_fails/shared/utils/colors.dart';
+import 'package:eneo_fails/shared/utils/icon_asset.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +19,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(children: [Text("Douala"), kwSpacer(5.w), Icon(Icons.sunny)]),
+        title: Row(children: [
+          CircleAvatar(
+            backgroundColor: activeIndex == 0 ? Theme.of(context).primaryColor : EneoFailsColor.kSuccess,
+            child: activeIndex == 0
+                ? SvgPicture.asset(
+                    IconAssets.flash_off,
+                    color: Theme.of(context).primaryColorDark,
+                  )
+                : SvgPicture.asset(
+                    IconAssets.flash,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
+          ),
+          kwSpacer(10.w),
+          Text("Douala, CMR", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700)),
+        ]),
       ),
       body: Stack(
         children: [
@@ -29,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Positioned(
             bottom: 10,
-            left: kwidth(context) / 3.5,
-            right: kwidth(context) / 3.5,
+            left: kwidth(context) / 4,
+            right: kwidth(context) / 4,
             child: Material(
               elevation: 10,
               shape: RoundedRectangleBorder(borderRadius: radiusL()),
@@ -51,17 +69,53 @@ class _HomeScreenState extends State<HomeScreen> {
                     GestureDetector(
                       onTap: () => setState(() => activeIndex = 0),
                       child: AnimatedScale(
-                        scale: activeIndex == 0 ? 1.5 : 1.0,
+                        scale: activeIndex == 0 ? 1.5 : 1.2,
                         duration: Duration(milliseconds: 200),
-                        child: Icon(Icons.home, color: activeIndex == 0 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              IconAssets.home,
+                              color: activeIndex == 0 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                            ),
+                            khSpacer(2.h),
+                            if (activeIndex == 0)
+                              Container(
+                                width: 20.w,
+                                height: 2.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: radiusM(),
+                                  color: activeIndex == 0 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                                ),
+                              )
+                          ],
+                        ),
                       ),
                     ),
                     GestureDetector(
                       onTap: () => setState(() => activeIndex = 1),
                       child: AnimatedScale(
-                        scale: activeIndex == 1 ? 1.5 : 1.0,
+                        scale: activeIndex == 1 ? 1.5 : 1.2,
                         duration: Duration(milliseconds: 200),
-                        child: Icon(Icons.search, color: activeIndex == 1 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              IconAssets.search,
+                              color: activeIndex == 1 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                            ),
+                            khSpacer(2.h),
+                            if (activeIndex == 1)
+                              Container(
+                                width: 20.w,
+                                height: 2.h,
+                                decoration: BoxDecoration(
+                                  color: activeIndex == 1 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                                  borderRadius: radiusM(),
+                                ),
+                              )
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -87,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return ListTile(
                   minLeadingWidth: 10.w,
                   title: Text("Search Item", style: Theme.of(context).textTheme.bodyMedium),
-                  leading: Icon(Icons.wb_sunny),
+                  leading: SvgPicture.asset(IconAssets.location_pin),
                 );
               },
             ),

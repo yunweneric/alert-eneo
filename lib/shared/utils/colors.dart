@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class EneoFailsColor {
   static const Color primaryColor = Color.fromARGB(255, 245, 117, 108);
-  static const Color kSuccess = Color(0XFFA3DEB7);
+  static const Color kSuccess = Color.fromARGB(255, 56, 231, 114);
   static const Color kDanger = Color(0xFFFFBFBF);
   static const Color kDangerLight = Color.fromARGB(255, 245, 117, 108);
   static const Color kWhite = Color(0xFFFFFFFF);
