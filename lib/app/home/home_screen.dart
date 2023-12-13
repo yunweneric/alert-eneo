@@ -41,89 +41,88 @@ class _HomeScreenState extends State<HomeScreen> {
           AnimatedSwitcher(
             duration: Duration(milliseconds: 500),
             child: activeIndex == 0 ? home(context) : searchHome(context),
-            // transitionBuilder: (Widget child, Animation<double> a) {
-            //   return ScaleTransition(scale: a);
-            // },
           ),
           Positioned(
             bottom: 10,
             left: kwidth(context) / 4,
             right: kwidth(context) / 4,
-            child: Material(
-              elevation: 10,
-              shape: RoundedRectangleBorder(borderRadius: radiusL()),
-              child: Container(
-                height: 50.h,
-                // width: kwidth(context) / 2,
-                // margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  borderRadius: radiusL(),
-                  boxShadow: [
-                    BoxShadow(color: Theme.of(context).highlightColor.withOpacity(0.05), spreadRadius: 1, blurRadius: 20),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: bottombar(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Material bottombar(BuildContext context) {
+    return Material(
+      elevation: 20,
+      shape: RoundedRectangleBorder(borderRadius: radiusXxl()),
+      child: Container(
+        height: 60.h,
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: radiusL(),
+          boxShadow: [
+            BoxShadow(color: Theme.of(context).highlightColor.withOpacity(0.05), spreadRadius: 1, blurRadius: 20),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () => setState(() => activeIndex = 0),
+              child: AnimatedScale(
+                scale: activeIndex == 0 ? 1.5 : 1.2,
+                duration: Duration(milliseconds: 200),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () => setState(() => activeIndex = 0),
-                      child: AnimatedScale(
-                        scale: activeIndex == 0 ? 1.5 : 1.2,
-                        duration: Duration(milliseconds: 200),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              IconAssets.home,
-                              color: activeIndex == 0 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
-                            ),
-                            khSpacer(2.h),
-                            if (activeIndex == 0)
-                              Container(
-                                width: 20.w,
-                                height: 2.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: radiusM(),
-                                  color: activeIndex == 0 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
-                                ),
-                              )
-                          ],
-                        ),
-                      ),
+                    SvgPicture.asset(
+                      IconAssets.home,
+                      color: activeIndex == 0 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
                     ),
-                    GestureDetector(
-                      onTap: () => setState(() => activeIndex = 1),
-                      child: AnimatedScale(
-                        scale: activeIndex == 1 ? 1.5 : 1.2,
-                        duration: Duration(milliseconds: 200),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              IconAssets.search,
-                              color: activeIndex == 1 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
-                            ),
-                            khSpacer(2.h),
-                            if (activeIndex == 1)
-                              Container(
-                                width: 20.w,
-                                height: 2.h,
-                                decoration: BoxDecoration(
-                                  color: activeIndex == 1 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
-                                  borderRadius: radiusM(),
-                                ),
-                              )
-                          ],
+                    khSpacer(2.h),
+                    if (activeIndex == 0)
+                      Container(
+                        width: 20.w,
+                        height: 2.h,
+                        decoration: BoxDecoration(
+                          borderRadius: radiusM(),
+                          color: activeIndex == 0 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
                         ),
-                      ),
-                    ),
+                      )
                   ],
                 ),
               ),
             ),
-          ),
-        ],
+            GestureDetector(
+              onTap: () => setState(() => activeIndex = 1),
+              child: AnimatedScale(
+                scale: activeIndex == 1 ? 1.5 : 1.2,
+                duration: Duration(milliseconds: 200),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      IconAssets.search,
+                      color: activeIndex == 1 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                    ),
+                    khSpacer(2.h),
+                    if (activeIndex == 1)
+                      Container(
+                        width: 20.w,
+                        height: 2.h,
+                        decoration: BoxDecoration(
+                          color: activeIndex == 1 ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                          borderRadius: radiusM(),
+                        ),
+                      )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -134,7 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: kAppPading(),
       child: Column(
         children: [
-          CupertinoSearchTextField(),
+          CupertinoSearchTextField(
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
           Expanded(
             child: ListView.builder(
               itemBuilder: (c, i) {
