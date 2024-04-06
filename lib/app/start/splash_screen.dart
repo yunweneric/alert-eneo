@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class PageItem {
   final String title;
@@ -36,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2), () => context.go(AppRoutes.start));
+    Future.delayed(Duration(seconds: 2), () => context.go(AppRoutes.home));
     super.initState();
   }
 
@@ -54,7 +53,9 @@ class _SplashScreenState extends State<SplashScreen> {
           height: kheight(context),
           width: kwidth(context),
           color: Theme.of(context).scaffoldBackgroundColor,
-          child: Center(child: CupertinoActivityIndicator(color: Theme.of(context).primaryColor)),
+          child: Center(
+              child: CupertinoActivityIndicator(
+                  color: Theme.of(context).primaryColor)),
         ),
       ),
     );
@@ -91,7 +92,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [EneoFailsColor.kDark.withOpacity(0), EneoFailsColor.kDark.withOpacity(0.8), EneoFailsColor.kDark],
+                  colors: [
+                    EneoFailsColor.kDark.withOpacity(0),
+                    EneoFailsColor.kDark.withOpacity(0.8),
+                    EneoFailsColor.kDark
+                  ],
                 ),
               ),
             ),
@@ -126,9 +131,16 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   AnimatedContainer(
                     duration: Duration(milliseconds: 300),
-                    padding: currentIndex == 4 ? kpadding(15.w, 12.w) : kpadding(15.w, 15.w),
-                    decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: radiusM()),
-                    child: currentIndex == 4 ? Text("Get Started") : Icon(Icons.arrow_forward, color: EneoFailsColor.kWhite, size: 20),
+                    padding: currentIndex == 4
+                        ? kpadding(15.w, 12.w)
+                        : kpadding(15.w, 15.w),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: radiusM()),
+                    child: currentIndex == 4
+                        ? Text("Get Started")
+                        : Icon(Icons.arrow_forward,
+                            color: EneoFailsColor.kWhite, size: 20),
                   )
                 ],
               ),
@@ -150,7 +162,9 @@ class _SplashScreenState extends State<SplashScreen> {
       margin: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
         borderRadius: radiusL(),
-        color: isActive ? EneoFailsColor.kWhite : EneoFailsColor.kWhite.withOpacity(0.5),
+        color: isActive
+            ? EneoFailsColor.kWhite
+            : EneoFailsColor.kWhite.withOpacity(0.5),
       ),
     );
   }

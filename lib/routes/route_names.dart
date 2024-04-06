@@ -1,4 +1,3 @@
-
 class AppRoutes {
   static const start = "/start";
   static const home = "/home";

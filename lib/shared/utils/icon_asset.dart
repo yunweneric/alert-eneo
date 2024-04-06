@@ -6,4 +6,6 @@ class IconAssets {
   static const location_pin = 'assets/icons/location_pin.svg';
   static const search = 'assets/icons/search.svg';
   static const plug = 'assets/icons/plug.svg';
+  static const settings = 'assets/icons/settings.svg';
+  static const close = 'assets/icons/close.svg';
 }
