@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:eneo_fails/app/home/data/models/outage_model.dart';
 import 'package:eneo_fails/app/outage/data/models/eneo_outage_model/eneo_outage_model.dart';
 import 'package:eneo_fails/app/outage/data/repositories/outage_repository.dart';
 import 'package:meta/meta.dart';
@@ -10,6 +9,7 @@ part 'eneo_outage_state.dart';
 class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
   final OutageRepository _outageRepository;
   List<EneoOutageModel> outages = [];
+  List<EneoOutageModel> searchOutages = [];
 
   // List<EneoOutageModel> outages = List.generate(10, (index) {
   //   Faker faker = Faker();
@@ -30,12 +30,25 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
     on<GetOutEneoOutageEvent>((event, emit) async {
       emit(EneoOutageFetchLoading());
       try {
-        List<EneoOutageModel> new_outages = await _outageRepository.getOutages(data: {"region": event.regionId});
+        List<EneoOutageModel> new_outages = await _outageRepository
+            .getOutages(data: {"region": event.regionId});
         // emit(EneoOutageFetchLoaded(outages: outages));
         outages = new_outages;
+        searchOutages = new_outages;
         emit(EneoOutageFetchLoaded(outages: new_outages));
       } catch (e) {
         emit(EneoOutageFetchError(message: e.toString()));
+      }
+    });
+    on<SearchEneoOutageEvent>((event, emit) async {
+      emit(EneoOutageSearchLoading());
+      try {
+        List<EneoOutageModel> new_outages = await _outageRepository
+            .getOutages(data: {"localite": event.localite});
+        searchOutages = new_outages;
+        emit(EneoOutageSearchLoaded(outages: new_outages));
+      } catch (e) {
+        emit(EneoOutageSearchError(message: e.toString()));
       }
     });
   }

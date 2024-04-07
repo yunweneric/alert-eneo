@@ -65,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Good Morning!", style: Theme.of(context).textTheme.displayMedium),
+                        Text("Good Morning!",
+                            style: Theme.of(context).textTheme.displayMedium),
                         kh10Spacer(),
                         Text(
                           "It seems you are out of electricity. \nNote that this information may not be too accurate",

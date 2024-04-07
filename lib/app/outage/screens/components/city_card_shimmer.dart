@@ -1,3 +1,4 @@
+import 'package:eneo_fails/shared/components/base_shimmer.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,25 +14,24 @@ class CityOutageShimmerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      highlightColor: Theme.of(context).cardColor,
-      baseColor: Theme.of(context).primaryColorDark.withOpacity(0.1),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        margin: kph(10.w),
-        child: Stack(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: CardContent(
-                title: "",
-                desc: "",
+    return Container(
+      child: Shimmer.fromColors(
+        highlightColor: Theme.of(context).cardColor,
+        baseColor: Theme.of(context).primaryColorDark.withOpacity(0.1),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          margin: kph(10.w),
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: CardContent(title: "", desc: ""),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -70,17 +70,6 @@ class CardContent extends StatelessWidget {
           shimmerItem(70.w, 70.w, 50.r, context),
         ],
       ),
-    );
-  }
-
-  Container shimmerItem(
-      double height, double width, double radius, BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(radius)),
     );
   }
 }

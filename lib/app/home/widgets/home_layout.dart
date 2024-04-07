@@ -1,4 +1,5 @@
 import 'package:eneo_fails/app/home/home_screen.dart';
+import 'package:eneo_fails/app/outage/screens/outage_screen.dart';
 import 'package:eneo_fails/app/search/search_screen.dart';
 import 'package:eneo_fails/app/settings/settings_screen.dart';
 import 'package:eneo_fails/core/service_locators.dart';
@@ -19,28 +20,59 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   NavigationBarBloc navigationBarBloc = getIt.get<NavigationBarBloc>();
+
+  FocusNode focusNode = FocusNode();
+  bool keyBoardOpen = false;
+  @override
+  void initState() {
+    focusNode.addListener(() {
+      print("HomeLayout and inactive ${focusNode.hasFocus}");
+
+      if (!focusNode.hasFocus) {
+        Future.delayed(Duration(milliseconds: 500),
+            () => setState(() => keyBoardOpen = focusNode.hasFocus));
+      } else
+        setState(() => keyBoardOpen = focusNode.hasFocus);
+    });
+    super.initState();
+  }
+
+  dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<NavigationBarBloc, NavigationBarState>(
         builder: (context, state) {
-          return Stack(
-            children: [
-              AnimatedSwitcher(
-                duration: Duration(milliseconds: 500),
-                child: state.activeIndex == 1
-                    ? HomeScreen()
-                    : state.activeIndex == 0
-                        ? SearchScreen()
-                        : SettingsScreen(),
-              ),
-              Positioned(
-                bottom: 20,
-                left: kwidth(context) / 4,
-                right: kwidth(context) / 4,
-                child: bottomBar(context, state.activeIndex),
-              ),
-            ],
+          return KeyboardListener(
+            focusNode: focusNode,
+            child: Stack(
+              children: [
+                AnimatedSwitcher(
+                  duration: Duration(milliseconds: 500),
+                  child: state.activeIndex == 1
+                      ? HomeScreen()
+                      : state.activeIndex == 0
+                          // ? SearchScreen()
+                          ? OutageListPage()
+                          : SettingsScreen(),
+                ),
+                Positioned(
+                  bottom: 20,
+                  left: kwidth(context) / 4,
+                  right: kwidth(context) / 4,
+                  child: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 500),
+                    child: !keyBoardOpen
+                        ? bottomBar(context, state.activeIndex)
+                        : SizedBox(),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -61,9 +93,10 @@ class _HomeLayoutState extends State<HomeLayout> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            // bottomIcon(context: context, icon: IconAssets.globe_search, index: 0, activeIndex: activeIndex),
             bottomIcon(
                 context: context,
-                icon: IconAssets.globe_search,
+                icon: IconAssets.power_search_icon,
                 index: 0,
                 activeIndex: activeIndex),
             bottomIcon(

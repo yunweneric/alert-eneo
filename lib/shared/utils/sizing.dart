@@ -56,20 +56,20 @@ InputDecoration authInputDecoration(
 OutlineInputBorder mainBorder() {
   return OutlineInputBorder(
     borderSide: BorderSide.none,
-    borderRadius: radiusM(),
+    borderRadius: radiusSm(),
   );
 }
 
 OutlineInputBorder mainfocusBorder() {
   return OutlineInputBorder(
     borderSide: BorderSide.none,
-    borderRadius: radiusM(),
+    borderRadius: radiusSm(),
   );
 }
 
 OutlineInputBorder errorBorder() {
   return OutlineInputBorder(
     borderSide: BorderSide.none,
-    borderRadius: radiusM(),
+    borderRadius: radiusSm(),
   );
 }

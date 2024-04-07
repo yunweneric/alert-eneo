@@ -40,7 +40,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               kh20Spacer(),
-              Text("About App"),
+              Text("About App",
+                  style: Theme.of(context).textTheme.displayMedium),
               kh10Spacer(),
               Text(
                 "This app is a tentative solution to the problem of power outages in Cameroon. It is not affiliated with Eneo Cameroon.",

@@ -5,7 +5,8 @@ abstract class BaseService {
 
   BaseService({required Dio dio}) : _dio = dio;
 
-  Future<Response> get({required String url, Map<String, dynamic>? queryParameters}) async {
+  Future<Response> get(
+      {required String url, Map<String, dynamic>? queryParameters}) async {
     return await _dio.get(url, queryParameters: queryParameters);
   }
 

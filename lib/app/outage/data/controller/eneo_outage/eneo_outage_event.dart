@@ -8,3 +8,9 @@ class GetOutEneoOutageEvent extends EneoOutageEvent {
 
   GetOutEneoOutageEvent({this.regionId});
 }
+
+class SearchEneoOutageEvent extends EneoOutageEvent {
+  final String? localite;
+
+  SearchEneoOutageEvent({this.localite});
+}

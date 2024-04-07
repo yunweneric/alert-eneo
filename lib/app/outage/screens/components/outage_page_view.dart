@@ -57,7 +57,8 @@ class _HomeOutagePageViewState extends State<HomeOutagePageView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Outages!", style: Theme.of(context).textTheme.displayMedium),
+                      Text("Outages!",
+                          style: Theme.of(context).textTheme.displayMedium),
                       Text(
                         "Some outages around your city!",
                         style: Theme.of(context).textTheme.bodySmall,
@@ -65,21 +66,26 @@ class _HomeOutagePageViewState extends State<HomeOutagePageView> {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () => navigationBarBloc.add(NavigationBarChangeIndexEvent(activeIndex: 0)),
+                    onTap: () => navigationBarBloc
+                        .add(NavigationBarChangeIndexEvent(activeIndex: 0)),
                     child: Chip(
-                      label: Text("View All", style: Theme.of(context).textTheme.bodySmall),
+                      label: Text("View All",
+                          style: Theme.of(context).textTheme.bodySmall),
                     ),
                   )
                 ],
               ),
             ),
             kh10Spacer(),
-            if (context.read<EneoOutageBloc>().outages.length == 0 && loadingOutages == false)
+            if (context.read<EneoOutageBloc>().outages.length == 0 &&
+                loadingOutages == false)
               Container(
                 margin: kAppPading(),
                 width: kwidth(context),
                 height: kheight(context) / 2,
-                decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: radiusM()),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: radiusM()),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -90,7 +96,8 @@ class _HomeOutagePageViewState extends State<HomeOutagePageView> {
               ),
             // if (context.read<EneoOutageBloc>().outages.length > 0 || loadingOutages == false)
             Builder(builder: (context) {
-              List<EneoOutageModel> items = context.read<EneoOutageBloc>().outages;
+              List<EneoOutageModel> items =
+                  context.read<EneoOutageBloc>().outages;
               int count = loadingOutages ? 5 : items.length;
               if (count > 10) {
                 items = items.sublist(0, 10);
@@ -136,7 +143,9 @@ class _HomeOutagePageViewState extends State<HomeOutagePageView> {
                         margin: EdgeInsets.symmetric(horizontal: 2),
                         decoration: BoxDecoration(
                           borderRadius: radiusM(),
-                          color: activeIndex == page ? Theme.of(context).primaryColor : Theme.of(context).cardColor,
+                          color: activeIndex == page
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).cardColor,
                         ),
                       );
                     },

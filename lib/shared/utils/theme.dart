@@ -105,6 +105,7 @@ class EneoOutageTheme {
         focusedBorder: mainfocusBorder(),
         filled: true,
         fillColor: EneoFailsColor.kGrey.withOpacity(0.15),
+        hintStyle: lightTextTheme.labelSmall,
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: EneoFailsColor.kBackground,
@@ -170,6 +171,7 @@ class EneoOutageTheme {
         focusedBorder: mainfocusBorder(),
         filled: true,
         fillColor: EneoFailsColor.kGrey.withOpacity(0.15),
+        hintStyle: darkTextTheme.labelSmall,
       ),
     );
   }

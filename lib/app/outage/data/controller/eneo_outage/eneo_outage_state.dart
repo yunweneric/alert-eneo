@@ -18,3 +18,17 @@ class EneoOutageFetchLoaded extends EneoOutageState {
 
   EneoOutageFetchLoaded({required this.outages});
 }
+
+class EneoOutageSearchLoading extends EneoOutageState {}
+
+class EneoOutageSearchError extends EneoOutageState {
+  final String message;
+
+  EneoOutageSearchError({required this.message});
+}
+
+class EneoOutageSearchLoaded extends EneoOutageState {
+  final List<EneoOutageModel> outages;
+
+  EneoOutageSearchLoaded({required this.outages});
+}
