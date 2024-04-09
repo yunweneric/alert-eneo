@@ -32,3 +32,17 @@ class EneoOutageSearchLoaded extends EneoOutageState {
 
   EneoOutageSearchLoaded({required this.outages});
 }
+
+class EneoOutageGetUserLoading extends EneoOutageState {}
+
+class EneoOutageGetUserError extends EneoOutageState {
+  final String message;
+
+  EneoOutageGetUserError({required this.message});
+}
+
+class EneoOutageGetUserLoaded extends EneoOutageState {
+  final UserOutage userOutage;
+
+  EneoOutageGetUserLoaded({required this.userOutage});
+}

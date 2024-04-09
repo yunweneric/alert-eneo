@@ -8,8 +8,7 @@ class OutageRepository {
 
   OutageRepository(this._outageService);
 
-  Future<List<EneoOutageModel>> getOutages(
-      {required Map<String, dynamic> data}) async {
+  Future<List<EneoOutageModel>> getOutages({required Map<String, dynamic> data}) async {
     final response = await _outageService.getOutages(data: data);
     if (response.statusCode == 200) {
       final decodedData = json.decode(response.data);

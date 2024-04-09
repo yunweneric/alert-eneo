@@ -8,66 +8,24 @@ import 'colors.dart';
 class EneoOutageTheme {
   // 1
   static TextTheme lightTextTheme = TextTheme(
-    bodyLarge: GoogleFonts.poppins(
-        fontSize: 14.0.sp,
-        fontWeight: FontWeight.w700,
-        color: EneoFailsColor.kDark),
-    bodyMedium: GoogleFonts.poppins(
-        fontSize: 14.0.sp,
-        fontWeight: FontWeight.normal,
-        color: EneoFailsColor.kDark),
-    displayLarge: GoogleFonts.poppins(
-        fontSize: 28.0.sp,
-        fontWeight: FontWeight.bold,
-        color: EneoFailsColor.kDark),
-    displayMedium: GoogleFonts.poppins(
-        fontSize: 23.0.sp,
-        fontWeight: FontWeight.w500,
-        color: EneoFailsColor.kDark),
-    displaySmall: GoogleFonts.poppins(
-        fontSize: 14.0.sp,
-        fontWeight: FontWeight.w600,
-        color: EneoFailsColor.kDark),
-    titleMedium: GoogleFonts.poppins(
-        fontSize: 16.0.sp,
-        fontWeight: FontWeight.w600,
-        color: EneoFailsColor.kDark),
-    labelMedium: TextStyle(
-        fontSize: 14.0.sp,
-        color: EneoFailsColor.kGrey,
-        fontWeight: FontWeight.w300),
+    bodyLarge: GoogleFonts.poppins(fontSize: 14.0.sp, fontWeight: FontWeight.w700, color: EneoFailsColor.kDark),
+    bodyMedium: GoogleFonts.poppins(fontSize: 14.0.sp, fontWeight: FontWeight.normal, color: EneoFailsColor.kDark),
+    displayLarge: GoogleFonts.poppins(fontSize: 28.0.sp, fontWeight: FontWeight.bold, color: EneoFailsColor.kDark),
+    displayMedium: GoogleFonts.poppins(fontSize: 23.0.sp, fontWeight: FontWeight.w500, color: EneoFailsColor.kDark),
+    displaySmall: GoogleFonts.poppins(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: EneoFailsColor.kDark),
+    titleMedium: GoogleFonts.poppins(fontSize: 16.0.sp, fontWeight: FontWeight.w600, color: EneoFailsColor.kDark),
+    labelMedium: TextStyle(fontSize: 14.0.sp, color: EneoFailsColor.kGrey, fontWeight: FontWeight.w300),
   );
 
   // 2
   static TextTheme darkTextTheme = TextTheme(
-    bodyLarge: GoogleFonts.poppins(
-        fontSize: 14.0.sp,
-        fontWeight: FontWeight.w700,
-        color: EneoFailsColor.kWhite),
-    bodyMedium: GoogleFonts.poppins(
-        fontSize: 14.0.sp,
-        fontWeight: FontWeight.normal,
-        color: EneoFailsColor.kWhite),
-    displayLarge: GoogleFonts.poppins(
-        fontSize: 28.0.sp,
-        fontWeight: FontWeight.bold,
-        color: EneoFailsColor.kWhite),
-    displayMedium: GoogleFonts.poppins(
-        fontSize: 23.0.sp,
-        fontWeight: FontWeight.w500,
-        color: EneoFailsColor.kWhite),
-    displaySmall: GoogleFonts.poppins(
-        fontSize: 14.0.sp,
-        fontWeight: FontWeight.w600,
-        color: EneoFailsColor.kWhite),
-    titleMedium: GoogleFonts.poppins(
-        fontSize: 16.0.sp,
-        fontWeight: FontWeight.w600,
-        color: EneoFailsColor.kWhite),
-    labelMedium: TextStyle(
-        fontSize: 14.0.sp,
-        color: EneoFailsColor.kGrey,
-        fontWeight: FontWeight.w300),
+    bodyLarge: GoogleFonts.poppins(fontSize: 14.0.sp, fontWeight: FontWeight.w700, color: EneoFailsColor.kWhite),
+    bodyMedium: GoogleFonts.poppins(fontSize: 14.0.sp, fontWeight: FontWeight.normal, color: EneoFailsColor.kWhite),
+    displayLarge: GoogleFonts.poppins(fontSize: 28.0.sp, fontWeight: FontWeight.bold, color: EneoFailsColor.kWhite),
+    displayMedium: GoogleFonts.poppins(fontSize: 23.0.sp, fontWeight: FontWeight.w500, color: EneoFailsColor.kWhite),
+    displaySmall: GoogleFonts.poppins(fontSize: 14.0.sp, fontWeight: FontWeight.w600, color: EneoFailsColor.kWhite),
+    titleMedium: GoogleFonts.poppins(fontSize: 16.0.sp, fontWeight: FontWeight.w600, color: EneoFailsColor.kWhite),
+    labelMedium: TextStyle(fontSize: 14.0.sp, color: EneoFailsColor.kGrey, fontWeight: FontWeight.w300),
   );
 
   // 3
@@ -92,7 +50,7 @@ class EneoOutageTheme {
       bottomAppBarTheme: BottomAppBarTheme(color: EneoFailsColor.kWhite),
       hoverColor: EneoFailsColor.kSuccess,
       listTileTheme: ListTileThemeData(
-        contentPadding: kpadding(20.w, 10.h),
+        contentPadding: kPadding(20.w, 10.h),
         subtitleTextStyle: TextStyle(color: EneoFailsColor.kGrey),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -108,14 +66,11 @@ class EneoOutageTheme {
         hintStyle: lightTextTheme.labelSmall,
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: EneoFailsColor.kBackground,
+        backgroundColor: EneoFailsColor.kDarkBackground,
         elevation: 0,
-        actionsIconTheme: IconThemeData(color: EneoFailsColor.kDark),
-        iconTheme: IconThemeData(color: EneoFailsColor.kDark),
-        titleTextStyle: TextStyle(
-            color: EneoFailsColor.kDark,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500),
+        actionsIconTheme: IconThemeData(color: EneoFailsColor.kWhite),
+        iconTheme: IconThemeData(color: EneoFailsColor.kWhite),
+        titleTextStyle: TextStyle(color: EneoFailsColor.kWhite, fontSize: 14.sp, fontWeight: FontWeight.w500),
       ),
       cardTheme: CardTheme(
         color: EneoFailsColor.kCard,
@@ -145,24 +100,18 @@ class EneoOutageTheme {
       primaryColorLight: EneoFailsColor.kDark,
       shadowColor: EneoFailsColor.kDarkCard,
       hoverColor: EneoFailsColor.kSuccess,
-      cardTheme: CardTheme(
-          elevation: 0, shape: RoundedRectangleBorder(borderRadius: radiusM())),
+      cardTheme: CardTheme(elevation: 0, shape: RoundedRectangleBorder(borderRadius: radiusM())),
       listTileTheme: ListTileThemeData(
-        contentPadding: kpadding(20.w, 10.h),
+        contentPadding: kPadding(20.w, 10.h),
         subtitleTextStyle: TextStyle(color: EneoFailsColor.kGrey),
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: EneoFailsColor.primaryColor,
-          foregroundColor: EneoFailsColor.kWhite),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: EneoFailsColor.primaryColor, foregroundColor: EneoFailsColor.kWhite),
       appBarTheme: AppBarTheme(
         backgroundColor: EneoFailsColor.kDark,
         elevation: 0,
         actionsIconTheme: IconThemeData(color: EneoFailsColor.kWhite),
         iconTheme: IconThemeData(color: EneoFailsColor.kWhite),
-        titleTextStyle: TextStyle(
-            color: EneoFailsColor.kWhite,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500),
+        titleTextStyle: TextStyle(color: EneoFailsColor.kWhite, fontSize: 14.sp, fontWeight: FontWeight.w500),
       ),
       bottomAppBarTheme: BottomAppBarTheme(color: EneoFailsColor.kDark),
       inputDecorationTheme: InputDecorationTheme(

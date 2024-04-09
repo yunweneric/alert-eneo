@@ -14,3 +14,9 @@ class SearchEneoOutageEvent extends EneoOutageEvent {
 
   SearchEneoOutageEvent({this.localite});
 }
+
+class GetOutUserEneoOutageEvent extends EneoOutageEvent {
+  final BuildContext context;
+
+  GetOutUserEneoOutageEvent(this.context);
+}

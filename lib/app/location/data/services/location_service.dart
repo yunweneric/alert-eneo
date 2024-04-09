@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 class LocationService extends BaseService {
   LocationService({required super.dio});
 
-  Future<LocationModel?> determineCurrentLocation({required BuildContext context}) async {
+  Future<Map<String, dynamic>?> determineCurrentLocation({required BuildContext context}) async {
     try {
       // Test if location services are enabled.
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -47,15 +47,13 @@ class LocationService extends BaseService {
 
       String? locationName = await getStreetNameFromCoordinates(position.latitude, position.longitude);
 
-      LocationModel location = LocationModel(
-        latitude: position.latitude,
-        longitude: position.longitude,
-        name: locationName ?? "",
-      );
+      if (locationName == null) return null;
 
-      logI(location.toJson());
-
-      return location;
+      return {
+        "latitude": position.latitude,
+        "longitude": position.longitude,
+        "name": locationName,
+      };
     } catch (e) {
       logError(e);
       return null;
@@ -90,7 +88,7 @@ class LocationService extends BaseService {
       List<Placemark> place = await placemarkFromCoordinates(latitude, longitude);
       if (place.isNotEmpty) {
         logI(place[0].toJson());
-        return place[0].street;
+        return place[0].locality;
       }
     } catch (e) {
       logI('getCountryFromCoordinates: $e');

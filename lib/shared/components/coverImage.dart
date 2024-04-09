@@ -20,32 +20,27 @@ Widget coverImage({
     alignment: stackAlignment ?? Alignment.center,
     children: [
       ClipRRect(
-        borderRadius: borderRadius != null
-            ? BorderRadius.circular(borderRadius)
-            : BorderRadius.circular(0),
+        borderRadius: borderRadius != null ? BorderRadius.circular(borderRadius) : BorderRadius.circular(0),
         child: CachedNetworkImage(
           imageUrl: url == null || url == "" ? ImageAssets.outage : url,
-          width: width ?? kwidth(context),
+          width: width ?? kWidth(context),
           height: height,
           alignment: alignment ?? Alignment.center,
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-              Shimmer.fromColors(
+          progressIndicatorBuilder: (context, url, downloadProgress) => Shimmer.fromColors(
             baseColor: Theme.of(context).highlightColor,
             highlightColor: Theme.of(context).cardColor,
             child: Container(
-              width: width ?? kwidth(context),
+              width: width ?? kWidth(context),
               height: height,
               color: Theme.of(context).cardColor,
               child: Center(
-                child: Text(downloadProgress.progress == null
-                    ? "0%"
-                    : (downloadProgress.progress! * 100).toStringAsFixed(2)),
+                child: Text(downloadProgress.progress == null ? "0%" : (downloadProgress.progress! * 100).toStringAsFixed(2)),
               ),
             ).animate().fadeIn(),
           ),
           fit: BoxFit.cover,
           errorWidget: (context, url, error) => Container(
-            width: kwidth(context),
+            width: kWidth(context),
             height: height,
             child: Icon(Icons.error),
             decoration: BoxDecoration(color: Theme.of(context).highlightColor),
@@ -56,8 +51,7 @@ Widget coverImage({
         Positioned(
           child: Container(
             height: height,
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColorDark.withOpacity(0.7)),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColorDark.withOpacity(0.7)),
           ),
         ),
       if (hasOverLay) overLayWidget!

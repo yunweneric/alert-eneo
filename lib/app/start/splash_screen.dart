@@ -1,4 +1,7 @@
+import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/route_names.dart';
+import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
+import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
@@ -24,7 +27,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   int currentIndex = 0;
   PageController controller = PageController(initialPage: 0);
-
   List<PageItem> items = [
     PageItem(title: "When is the next \nEneo Power Outage?"),
     PageItem(title: "Find out power outage\nin other places"),
@@ -35,8 +37,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2), () => context.go(AppRoutes.home));
+    routeUser();
     super.initState();
+  }
+
+  void routeUser() async {
+    LocalStorageService localStorageService = getIt.get<LocalStorageService>();
+    bool hasInit = await localStorageService.getInit();
+    Future.delayed(Duration(seconds: 2), () => context.go(hasInit ? AppRoutes.home : AppRoutes.start));
   }
 
   @override
@@ -50,12 +58,10 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
       child: Scaffold(
         body: Container(
-          height: kheight(context),
-          width: kwidth(context),
+          height: kHeight(context),
+          width: kWidth(context),
           color: Theme.of(context).scaffoldBackgroundColor,
-          child: Center(
-              child: CupertinoActivityIndicator(
-                  color: Theme.of(context).primaryColor)),
+          child: Center(child: CupertinoActivityIndicator(color: Theme.of(context).primaryColor)),
         ),
       ),
     );
@@ -64,8 +70,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Container backDrop({required BuildContext context, required Widget child}) {
     return Container(
       color: EneoFailsColor.kDark,
-      height: kheight(context),
-      width: kwidth(context),
+      height: kHeight(context),
+      width: kWidth(context),
       child: Stack(
         children: [
           // FadeInImage(
@@ -75,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
           // ),
           Container(
             height: 400.h,
-            width: kwidth(context),
+            width: kWidth(context),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("${ImageAssets.outage}${currentIndex}.jpg"),
@@ -87,16 +93,12 @@ class _SplashScreenState extends State<SplashScreen> {
             bottom: 10,
             child: Container(
               height: 700.h,
-              width: kwidth(context),
+              width: kWidth(context),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    EneoFailsColor.kDark.withOpacity(0),
-                    EneoFailsColor.kDark.withOpacity(0.8),
-                    EneoFailsColor.kDark
-                  ],
+                  colors: [EneoFailsColor.kDark.withOpacity(0), EneoFailsColor.kDark.withOpacity(0.8), EneoFailsColor.kDark],
                 ),
               ),
             ),
@@ -107,8 +109,8 @@ class _SplashScreenState extends State<SplashScreen> {
             right: 0,
             child: Container(
               child: child,
-              height: kheight(context) / 1.2,
-              width: kwidth(context),
+              height: kHeight(context) / 1.2,
+              width: kWidth(context),
             ),
           ),
           Positioned(
@@ -131,21 +133,14 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   AnimatedContainer(
                     duration: Duration(milliseconds: 300),
-                    padding: currentIndex == 4
-                        ? kpadding(15.w, 12.w)
-                        : kpadding(15.w, 15.w),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: radiusM()),
-                    child: currentIndex == 4
-                        ? Text("Get Started")
-                        : Icon(Icons.arrow_forward,
-                            color: EneoFailsColor.kWhite, size: 20),
+                    padding: currentIndex == 4 ? kPadding(15.w, 12.w) : kPadding(15.w, 15.w),
+                    decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: radiusM()),
+                    child: currentIndex == 4 ? Text("Get Started") : Icon(Icons.arrow_forward, color: EneoFailsColor.kWhite, size: 20),
                   )
                 ],
               ),
-              height: kheight(context) / 5,
-              width: kwidth(context),
+              height: kHeight(context) / 5,
+              width: kWidth(context),
               // color: Colors.teal,
             ),
           ),
@@ -162,9 +157,7 @@ class _SplashScreenState extends State<SplashScreen> {
       margin: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
         borderRadius: radiusL(),
-        color: isActive
-            ? EneoFailsColor.kWhite
-            : EneoFailsColor.kWhite.withOpacity(0.5),
+        color: isActive ? EneoFailsColor.kWhite : EneoFailsColor.kWhite.withOpacity(0.5),
       ),
     );
   }

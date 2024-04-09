@@ -42,13 +42,12 @@ class CardContent extends StatelessWidget {
   final String title;
   final String desc;
 
-  const CardContent({Key? key, required this.title, required this.desc})
-      : super(key: key);
+  const CardContent({Key? key, required this.title, required this.desc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: kpadding(20.w, 30.h),
+      padding: kPadding(20.w, 30.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[

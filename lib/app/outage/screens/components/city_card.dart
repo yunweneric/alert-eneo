@@ -1,10 +1,12 @@
 import 'package:eneo_fails/app/outage/data/models/eneo_outage_model/eneo_outage_model.dart';
+import 'package:eneo_fails/shared/controllers/outage_chip.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
+import 'package:eneo_fails/shared/utils/icon_asset.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
+import 'package:eneo_fails/shared/utils/util_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 
 class CityOutageCard extends StatelessWidget {
   final EneoOutageModel outage;
@@ -29,14 +31,14 @@ class CityOutageCard extends StatelessWidget {
             // child: coverImage(
             //   url: outage.cityImage,
             //   context: context,
-            //   height: kheight(context),
+            //   height: kHeight(context),
             //   alignment: Alignment(-offset.abs(), 0),
             // ),
             child: Image.asset(
               ImageAssets.outage1,
-              height: kheight(context),
+              height: kHeight(context),
               fit: BoxFit.cover,
-              width: kwidth(context),
+              width: kWidth(context),
               // alignment: Alignment(-offset.abs(), 0),
             ),
           ),
@@ -53,10 +55,7 @@ class CityOutageCard extends StatelessWidget {
                     //   outage.status == true ? EneoFailsColor.primaryColor.withOpacity(0.9) : EneoFailsColor.kSuccess.withOpacity(0.9),
                     // ],
 
-                    colors: [
-                      Colors.black.withOpacity(0.4),
-                      EneoFailsColor.primaryColor.withOpacity(0.9)
-                    ],
+                    colors: [Colors.black.withOpacity(0.4), EneoFailsColor.primaryColor.withOpacity(0.9)],
                   ),
                 ),
               ),
@@ -80,53 +79,43 @@ class CardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: kpadding(20.w, 30.h),
+      padding: kPadding(20.w, 30.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          if (outage.region != null)
-            if (outage.region!.trim().isNotEmpty)
-              Text(
-                "Region - ${outage.region}",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: EneoFailsColor.kWhite),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-          if (outage.ville != null)
-            if (outage.ville!.trim().isNotEmpty)
-              Text(
-                "City - ${outage.ville}",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: EneoFailsColor.kWhite),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-          if (outage.quartier != null)
-            if (outage.quartier!.trim().isNotEmpty)
-              Text(
-                "Quartar - ${outage.quartier}",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: EneoFailsColor.kWhite),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+          // if (outage.region != null)
+          if (outage.region!.trim().isNotEmpty)
+            Text(
+              "${outage.region} : ${outage.ville} - ${outage.quartier}",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: EneoFailsColor.kWhite),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+
           khSpacer(10.h),
           Text(
             outage.observations ?? "--",
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: EneoFailsColor.kWhite),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: EneoFailsColor.kWhite),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
+          ),
+          // kh10Spacer(),
+          Row(
+            children: [
+              kh10Spacer(),
+              outageChip(
+                context: context,
+                icon: IconAssets.calendar,
+                title: UtilHelper.formatDate(outage.progDate),
+              ),
+              kwSpacer(10.w),
+              outageChip(
+                context: context,
+                icon: IconAssets.clock,
+                title: "${outage.progHeureDebut ?? ""} - ${outage.progHeureFin ?? ""}",
+              ),
+            ],
           ),
         ],
       ),

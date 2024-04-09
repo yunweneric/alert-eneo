@@ -38,19 +38,23 @@ class _EneoFailsAppState extends State<EneoFailsApp> {
         BlocProvider(create: (context) => getIt.get<NavigationBarBloc>()),
         BlocProvider(create: (context) => getIt.get<EneoOutageBloc>()),
       ],
-      child: ScreenUtilInit(
-        useInheritedMediaQuery: true,
-        designSize: Size(360, 690),
-        builder: (context, child) {
-          ThemeData theme = EneoOutageTheme.light();
-          return MaterialApp.router(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            title: 'Eneo Outage',
-            routerConfig: routes,
-            debugShowCheckedModeBanner: false,
-            theme: theme,
+      child: BlocBuilder<EneoOutageBloc, EneoOutageState>(
+        builder: (context, state) {
+          return ScreenUtilInit(
+            useInheritedMediaQuery: true,
+            designSize: Size(360, 690),
+            builder: (context, child) {
+              ThemeData theme = context.read<EneoOutageBloc>().userOutage?.hasElectricity == true ? EneoOutageTheme.light() : EneoOutageTheme.dark();
+              return MaterialApp.router(
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                title: 'Eneo Outage',
+                routerConfig: routes,
+                debugShowCheckedModeBanner: false,
+                theme: theme,
+              );
+            },
           );
         },
       ),

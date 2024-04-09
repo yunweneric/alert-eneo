@@ -1,10 +1,8 @@
+import 'package:eneo_fails/app/outage/data/models/eneo_outage_regions/eneo_outage_regions.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AppSheet {
@@ -66,7 +64,7 @@ class AppSheet {
     return simpleModal(
       context: context,
       height: 400.h,
-      padding: kpadding(20.w, 10.h),
+      padding: kPadding(20.w, 10.h),
       child: Container(
         child: Column(
           children: [
@@ -80,6 +78,24 @@ class AppSheet {
             kh20Spacer(),
             Text(desc, style: Theme.of(context).textTheme.bodyMedium),
           ],
+        ),
+      ),
+    );
+  }
+
+  static showRegionSheet({required BuildContext context, required List<EneoOutageRegion> outageRegions}) {
+    return simpleModal(
+      context: context,
+      height: 400.h,
+      padding: kPadding(20.w, 10.h),
+      child: Container(
+        child: ListView.builder(
+          itemCount: outageRegions.length,
+          itemBuilder: (c, i) {
+            return ListTile(
+              title: Text(outageRegions[i].name),
+            );
+          },
         ),
       ),
     );

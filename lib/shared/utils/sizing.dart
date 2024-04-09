@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-EdgeInsetsGeometry kAppPading() => EdgeInsets.symmetric(horizontal: 20.w);
+EdgeInsetsGeometry kAppPadding() => EdgeInsets.symmetric(horizontal: 20.w);
 EdgeInsetsGeometry kph(double size) => EdgeInsets.symmetric(horizontal: size);
 
-EdgeInsetsGeometry kpadding(double width, double height) =>
-    EdgeInsets.symmetric(horizontal: width, vertical: height);
+EdgeInsetsGeometry kPadding(double width, double height) => EdgeInsets.symmetric(horizontal: width, vertical: height);
 
 EdgeInsetsGeometry kpv(double size) => EdgeInsets.symmetric(vertical: size);
 
-double kwidth(context) => MediaQuery.of(context).size.width;
+double kWidth(context) => MediaQuery.of(context).size.width;
 
-double kheight(context) => MediaQuery.of(context).size.height;
+double kHeight(context) => MediaQuery.of(context).size.height;
 
 Widget kh20Spacer() => SizedBox(height: 20.h);
 Widget kh10Spacer() => SizedBox(height: 10.h);
@@ -27,12 +26,7 @@ radiusL() => BorderRadius.circular(20.r);
 radiusXl() => BorderRadius.circular(25.r);
 radiusXxl() => BorderRadius.circular(30.r);
 
-InputDecoration authInputDecoration(
-    {required String hintText,
-    required BuildContext context,
-    label,
-    prefixIcon,
-    suffix}) {
+InputDecoration authInputDecoration({required String hintText, required BuildContext context, label, prefixIcon, suffix}) {
   return InputDecoration(
     hintText: hintText,
     labelText: label ?? hintText,

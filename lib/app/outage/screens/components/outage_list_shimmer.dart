@@ -22,8 +22,8 @@ class _OutageListShimmerState extends State<OutageListShimmer> {
       child: Shimmer.fromColors(
         highlightColor: Theme.of(context).cardColor,
         baseColor: Theme.of(context).primaryColorDark.withOpacity(0.1),
-        child: Container(
-          padding: kpadding(20.w, 30.h),
+        child: Padding(
+          padding: kPadding(20.w, 30.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -32,8 +32,7 @@ class _OutageListShimmerState extends State<OutageListShimmer> {
                 children: [
                   shimmerItem(8.h, 80.w, 5.r, context),
                   kwSpacer(20.w),
-                  Expanded(
-                      child: shimmerItem(8.h, kwidth(context), 5.r, context)),
+                  Expanded(child: shimmerItem(8.h, kWidth(context), 5.r, context)),
                 ],
               ),
               khSpacer(10.h),
@@ -41,14 +40,13 @@ class _OutageListShimmerState extends State<OutageListShimmer> {
                 children: [
                   shimmerItem(8.h, 80.w, 5.r, context),
                   kwSpacer(20.w),
-                  Expanded(
-                      child: shimmerItem(8.h, kwidth(context), 5.r, context)),
+                  Expanded(child: shimmerItem(8.h, kWidth(context), 5.r, context)),
                 ],
               ),
               khSpacer(20.h),
-              shimmerItem(8.h, kwidth(context), 5.r, context),
+              shimmerItem(8.h, kWidth(context), 5.r, context),
               khSpacer(10.h),
-              shimmerItem(8.h, kwidth(context), 5.r, context),
+              shimmerItem(8.h, kWidth(context), 5.r, context),
               khSpacer(10.h),
               shimmerItem(8.h, 150.w, 5.r, context),
             ],
