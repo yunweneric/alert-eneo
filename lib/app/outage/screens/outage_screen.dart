@@ -3,6 +3,7 @@ import 'package:eneo_fails/app/outage/data/models/eneo_outage_model/eneo_outage_
 import 'package:eneo_fails/app/outage/data/models/eneo_outage_regions/eneo_outage_regions.dart';
 import 'package:eneo_fails/app/outage/screens/components/outage_list_shimmer.dart';
 import 'package:eneo_fails/core/service_locators.dart';
+import 'package:eneo_fails/shared/components/bottom_sheets.dart';
 import 'package:eneo_fails/shared/controllers/outage_chip.dart';
 import 'package:eneo_fails/shared/utils/icon_asset.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
@@ -27,11 +28,10 @@ class _OutageListPageState extends State<OutageListPage> {
   FocusNode focusNode = FocusNode();
   TextEditingController searchController = TextEditingController();
 
-  List<EneoOutageRegion> outageRegions = [];
   @override
   void initState() {
     // eneoOutageBloc.add(GetOutEneoOutageEvent(regionId: "7"));
-    eneoOutageBloc.add(SearchEneoOutageEvent(localite: ''));
+    eneoOutageBloc.add(SearchEneoOutageByCityEvent(localite: ''));
     focusNode.addListener(() {
       if (!focusNode.hasFocus) scrollTo(0.h);
       print("Action and inactive ${focusNode.hasFocus}");
@@ -92,52 +92,44 @@ class _OutageListPageState extends State<OutageListPage> {
                               ),
                             ),
                           )
-                        : Padding(
-                            padding: kPadding(0.w, 20.h),
-                            child: Container(
-                              // color: Colors.teal,
-                              height: 35.h,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: searchController,
-                                      focusNode: focusNode,
-                                      onTap: () => scrollTo(100.h),
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                      decoration: InputDecoration(
-                                        fillColor: Theme.of(context).cardColor,
-                                        filled: true,
-                                        hintText: "Search for outages...",
-                                        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10.sp),
-                                        contentPadding: kPadding(10.w, 0.h),
-                                        // prefixIcon: Icon(Icons.search),
-                                      ),
-                                    ),
-                                  ),
-                                  kwSpacer(10.w),
-                                  GestureDetector(
-                                    onTap: () {
-                                      String locality = searchController.text.trim();
-                                      if (locality.isNotEmpty) {
-                                        focusNode.unfocus();
-                                        eneoOutageBloc.add(SearchEneoOutageEvent(localite: locality));
-                                      }
-                                    },
-                                    child: Container(
-                                      // padding: kPadding(5.w, 5.w),
-                                      height: 35.h, width: 35.h,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).cardColor,
-                                        borderRadius: radiusVal(5.r),
-                                      ),
-                                      child: Center(child: SvgPicture.asset(IconAssets.search, color: Theme.of(context).primaryColorDark)),
-                                    ),
-                                  )
-                                ],
+                        : Builder(builder: (context) {
+                            EneoOutageRegion? selectedRegion = context.read<EneoOutageBloc>().selectedRegion;
+                            return GestureDetector(
+                              onTap: () => AppSheet.showRegionSheet(
+                                context: context,
+                                outageRegions: context.read<EneoOutageBloc>().eneoOutageRegion,
+                                selectedOutageRegions: selectedRegion,
+                                onChanged: (region) => eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: region)),
                               ),
-                            ),
-                          ),
+                              child: Container(
+                                padding: kPadding(10.w, 8.h),
+                                margin: EdgeInsets.only(bottom: 20),
+                                decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: radiusM()),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: selectedRegion == null
+                                          ? Text(
+                                              "Choose outage locality",
+                                              style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10.sp),
+                                            )
+                                          : Row(
+                                              children: [
+                                                SvgPicture.asset(IconAssets.location_pin, color: Theme.of(context).primaryColorDark, width: 20),
+                                                kwSpacer(8.w),
+                                                Text(
+                                                  selectedRegion.name,
+                                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10.sp),
+                                                ),
+                                              ],
+                                            ),
+                                    ),
+                                    Icon(Icons.keyboard_arrow_down),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
                   ),
                 );
               }),

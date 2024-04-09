@@ -9,10 +9,16 @@ class GetOutEneoOutageEvent extends EneoOutageEvent {
   GetOutEneoOutageEvent({this.regionId});
 }
 
-class SearchEneoOutageEvent extends EneoOutageEvent {
+class SearchEneoOutageByCityEvent extends EneoOutageEvent {
   final String? localite;
 
-  SearchEneoOutageEvent({this.localite});
+  SearchEneoOutageByCityEvent({this.localite});
+}
+
+class SearchEneoOutageByRegionEvent extends EneoOutageEvent {
+  final EneoOutageRegion region;
+
+  SearchEneoOutageByRegionEvent({required this.region});
 }
 
 class GetOutUserEneoOutageEvent extends EneoOutageEvent {

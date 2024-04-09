@@ -1,4 +1,6 @@
+import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/route_names.dart';
+import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
@@ -24,6 +26,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentIndex = 0;
   PageController controller = PageController(initialPage: 0);
+  LocalStorageService localStorageService = getIt.get<LocalStorageService>();
 
   List<PageItem> items = [
     PageItem(title: "When is the next \nEneo Power Outage?"),
@@ -39,7 +42,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: EneoFailsColor.kDark,
+        // systemNavigationBarColor:Theme.of(context).primaryColorLight EneoFailsColor.kDark,
+        systemNavigationBarColor: Theme.of(context).primaryColorLight,
       ),
       child: Scaffold(
         body: backDrop(
@@ -134,7 +138,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: currentIndex == 4 ? () => context.go(AppRoutes.home) : () => controller.animateToPage(4, duration: Duration(milliseconds: 500), curve: Curves.linear),
+                    onTap: currentIndex == 4
+                        ? () {
+                            context.go(AppRoutes.home);
+                            localStorageService.saveInit(true);
+                          }
+                        : () => controller.animateToPage(4, duration: Duration(milliseconds: 500), curve: Curves.linear),
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 300),
                       padding: currentIndex == 4 ? kPadding(15.w, 12.w) : kPadding(15.w, 15.w),
