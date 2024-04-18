@@ -32,10 +32,24 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
   ];
 
   EneoOutageRegion? selectedRegion;
+  EneoOutageRegion? defaultRegion;
 
   EneoOutageBloc(this._outageRepository, this._locationRepository) : super(EneoOutageInitial()) {
     on<EneoOutageEvent>((event, emit) {});
 
+    on<SetEneoOutageRegionEvent>((event, emit) async {
+      LocationModel? location = await _locationRepository.getUserLocation(event.context);
+      if (location == null) {
+        emit(EneoOutageGetUserError(message: "Location not found!"));
+        return;
+      }
+      List<EneoOutageRegion> userRegion = eneoOutageRegion.where((element) => element.name.contains(location.placemark!.locality!)).toList();
+
+      if (userRegion.length > 0) {
+        add(GetOutEneoOutageEvent(regionId: userRegion.first.id));
+        defaultRegion = userRegion.first;
+      }
+    });
     on<GetOutEneoOutageEvent>((event, emit) async {
       emit(EneoOutageFetchLoading());
       try {
@@ -77,7 +91,14 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
           emit(EneoOutageGetUserError(message: "Location not found!"));
           return;
         }
-        List<EneoOutageModel> new_outages = await _outageRepository.getOutages(data: {"localite": location.name});
+        // Place
+        List<EneoOutageRegion> userRegion = eneoOutageRegion.where((element) => element.name.contains(location.placemark!.locality!)).toList();
+
+        if (userRegion.length > 0) {
+          add(GetOutEneoOutageEvent(regionId: userRegion.first.id));
+          defaultRegion = userRegion.first;
+        }
+        List<EneoOutageModel> new_outages = await _outageRepository.getOutages(data: {"localite": location.placemark!.locality!});
         bool hasElectricity = new_outages.length == 0;
         userOutage = UserOutage(hasElectricity: hasElectricity, userLocation: location);
         emit(EneoOutageGetUserLoaded(userOutage: userOutage!));

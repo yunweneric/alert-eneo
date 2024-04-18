@@ -1,5 +1,5 @@
 import 'package:eneo_fails/app/home/widgets/home_greeting.dart';
-import 'package:eneo_fails/app/outage/screens/components/outage_page_view.dart';
+import 'package:eneo_fails/app/outage/screens/components/home_outage_page_view.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/shared/components/navigation/navigation_bar_bloc.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';

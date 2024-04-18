@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:eneo_fails/app/donation/data/controller/donation/donation_bloc.dart';
 import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/router.dart';
@@ -37,6 +38,7 @@ class _EneoFailsAppState extends State<EneoFailsApp> {
       providers: [
         BlocProvider(create: (context) => getIt.get<NavigationBarBloc>()),
         BlocProvider(create: (context) => getIt.get<EneoOutageBloc>()),
+        BlocProvider(create: (context) => getIt.get<DonationBloc>()),
       ],
       child: BlocBuilder<EneoOutageBloc, EneoOutageState>(
         builder: (context, state) {

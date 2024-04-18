@@ -60,8 +60,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                 ),
                 Positioned(
                   bottom: 20,
-                  left: kWidth(context) / 4,
-                  right: kWidth(context) / 4,
+                  left: kWidth(context) / 5,
+                  right: kWidth(context) / 5,
                   child: AnimatedSwitcher(
                     duration: Duration(milliseconds: 500),
                     child: !keyBoardOpen ? bottomBar(context, state.activeIndex) : SizedBox(),

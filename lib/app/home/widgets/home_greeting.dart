@@ -82,7 +82,8 @@ class _HomeGreetingsState extends State<HomeGreetings> {
                   ),
                 )
               : Builder(builder: (context) {
-                  UserOutage? userOutage = context.read<EneoOutageBloc>().userOutage;
+                  // UserOutage? userOutage = context.read<EneoOutageBloc>().userOutage;
+                  UserOutage? userOutage = eneoOutageBloc.userOutage;
                   return Stack(
                     clipBehavior: Clip.hardEdge,
                     children: [
@@ -109,7 +110,7 @@ class _HomeGreetingsState extends State<HomeGreetings> {
                                 SvgPicture.asset(IconAssets.location_pin, color: Theme.of(context).primaryColorDark),
                                 kwSpacer(5.w),
                                 Text(
-                                  userOutage?.userLocation?.name ?? "No location found!",
+                                  userOutage?.userLocation?.placemark != null ? "${userOutage?.userLocation?.placemark?.country} ${userOutage?.userLocation?.placemark?.locality}" : "No location found!",
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],

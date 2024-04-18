@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -51,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               kh20Spacer(),
               Card(
                 child: ListTile(
-                  onTap: () => {},
+                  onTap: () => Share.share("Hi \nCheckout this app that shows eneo outages in Cameroon!"),
                   leading: Icon(Icons.share),
                   contentPadding: kPadding(20.w, 0.h),
                   title: Text('Share App', style: Theme.of(context).textTheme.bodyMedium),

@@ -23,18 +23,20 @@ class OutageListPage extends StatefulWidget {
 
 class _OutageListPageState extends State<OutageListPage> {
   EneoOutageBloc eneoOutageBloc = getIt.get<EneoOutageBloc>();
-  bool loadingOutages = true;
+  bool loadingOutages = false;
   ScrollController? controller;
   FocusNode focusNode = FocusNode();
   TextEditingController searchController = TextEditingController();
-
   @override
   void initState() {
-    // eneoOutageBloc.add(GetOutEneoOutageEvent(regionId: "7"));
-    eneoOutageBloc.add(SearchEneoOutageByCityEvent(localite: ''));
+    if (eneoOutageBloc.selectedRegion != null) {
+      // eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.selectedRegion!));
+    } else {
+      // eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.eneoOutageRegion.first));
+    }
+
     focusNode.addListener(() {
       if (!focusNode.hasFocus) scrollTo(0.h);
-      print("Action and inactive ${focusNode.hasFocus}");
     });
     controller = ScrollController();
     super.initState();

@@ -9,6 +9,12 @@ class GetOutEneoOutageEvent extends EneoOutageEvent {
   GetOutEneoOutageEvent({this.regionId});
 }
 
+class SetEneoOutageRegionEvent extends EneoOutageEvent {
+  final BuildContext context;
+
+  SetEneoOutageRegionEvent(this.context);
+}
+
 class SearchEneoOutageByCityEvent extends EneoOutageEvent {
   final String? localite;
 

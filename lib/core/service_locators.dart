@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:eneo_fails/app/donation/data/controller/donation/donation_bloc.dart';
+import 'package:eneo_fails/app/donation/data/repository/donate_repository.dart';
 import 'package:eneo_fails/app/location/data/repositories/location_repository.dart';
 import 'package:eneo_fails/app/location/data/services/location_service.dart';
 import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';
@@ -33,13 +35,17 @@ class ServiceLocators {
 
     OutageRepository outageRepository = OutageRepository(outageService);
     LocationRepository locationRepository = LocationRepository(locationService);
+    DonationRepository donationRepository = DonationRepository();
     getIt.registerSingleton<OutageRepository>(outageRepository);
+    getIt.registerSingleton<DonationRepository>(donationRepository);
 
+    DonationBloc donationBloc = DonationBloc(donationRepository);
     EneoOutageBloc _EneoOutageBloc = EneoOutageBloc(outageRepository, locationRepository);
     NavigationBarBloc _navigationBarBloc = NavigationBarBloc();
 
     getIt.registerSingleton<EneoOutageBloc>(_EneoOutageBloc);
     getIt.registerSingleton<NavigationBarBloc>(_navigationBarBloc);
+    getIt.registerSingleton<DonationBloc>(donationBloc);
 
     print("Service locators registered ...");
   }

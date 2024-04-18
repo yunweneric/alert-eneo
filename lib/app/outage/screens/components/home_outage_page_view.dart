@@ -31,7 +31,8 @@ class _HomeOutagePageViewState extends State<HomeOutagePageView> {
   @override
   void initState() {
     pageController = PageController(viewportFraction: 0.95);
-    eneoOutageBloc.add(GetOutEneoOutageEvent(regionId: "2"));
+    EneoOutageBloc eneoOutageBloc = getIt.get<EneoOutageBloc>();
+    eneoOutageBloc.add(GetOutEneoOutageEvent(regionId: eneoOutageBloc.defaultRegion?.id));
     super.initState();
   }
 
@@ -78,7 +79,7 @@ class _HomeOutagePageViewState extends State<HomeOutagePageView> {
               Container(
                 margin: kAppPadding(),
                 width: kWidth(context),
-                height: kHeight(context) / 2.1,
+                height: kHeight(context) / 2.3,
                 decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: radiusM()),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -96,7 +97,7 @@ class _HomeOutagePageViewState extends State<HomeOutagePageView> {
                 items = items.sublist(0, 10);
               }
               return Container(
-                height: kHeight(context) / 2.1,
+                height: kHeight(context) / 2.3,
                 child: PageView.builder(
                   itemCount: loadingOutages ? 5 : items.length,
                   controller: pageController,
@@ -125,6 +126,7 @@ class _HomeOutagePageViewState extends State<HomeOutagePageView> {
                 List<int> items = List.generate(10, (index) => index);
                 if (!loadingOutages) {
                   items = List.generate(context.read<EneoOutageBloc>().outages.length, (index) => index);
+                  items = items.length > 10 ? items.sublist(0, 10) : items;
                 }
                 return Align(
                   alignment: Alignment.center,

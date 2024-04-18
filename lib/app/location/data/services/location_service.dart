@@ -45,14 +45,14 @@ class LocationService extends BaseService {
 
       logI(position.toJson());
 
-      String? locationName = await getStreetNameFromCoordinates(position.latitude, position.longitude);
+      Placemark? placemark = await getStreetNameFromCoordinates(position.latitude, position.longitude);
 
-      if (locationName == null) return null;
+      if (placemark == null) return null;
 
       return {
         "latitude": position.latitude,
         "longitude": position.longitude,
-        "name": locationName,
+        "placemark": placemark.toJson(),
       };
     } catch (e) {
       logError(e);
@@ -83,15 +83,12 @@ class LocationService extends BaseService {
     return null;
   }
 
-  Future<String?> getStreetNameFromCoordinates(double latitude, double longitude) async {
+  // Future<String?> getStreetNameFromCoordinates(double latitude, double longitude) async {
+  Future<Placemark?> getStreetNameFromCoordinates(double latitude, double longitude) async {
     try {
       List<Placemark> place = await placemarkFromCoordinates(latitude, longitude);
-      if (place.isNotEmpty) {
-        logI(place[0].toJson());
-        return place[0].locality;
-      }
+      if (place.isNotEmpty) return place[0];
     } catch (e) {
-      logI('getCountryFromCoordinates: $e');
       return null;
     }
     return null;
@@ -123,7 +120,7 @@ class LocationService extends BaseService {
       bool launched = await MapsLauncher.launchCoordinates(
         location.latitude!,
         location.longitude!,
-        location.name,
+        location.placemark!.name,
       );
       if (!launched) {
         AppSheet.showErrorSheet(

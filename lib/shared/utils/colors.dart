@@ -9,8 +9,8 @@ class EneoFailsColor {
   static const Color kBackground = Colors.white;
   static const Color kDarkBackground = Color(0xFF070811);
   static const Color kDark = Color(0xFF0A0806);
-  static const Color kCard = Color.fromARGB(255, 25, 31, 27);
-  static const Color kDarkCard = Color.fromARGB(255, 24, 16, 15);
+  static const Color kCard = Color(0xFF191F1B);
+  static const Color kDarkCard = Color(0xFF18100F);
   static const Color kGrey = Color(0XFFA6A7A9);
   static const Color kTextGrey = Colors.grey;
   static const Color offWhite = Color(0xFFF1F5F9);
