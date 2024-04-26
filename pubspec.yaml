@@ -35,11 +35,14 @@ dependencies:
   dio: ^5.4.2+1
   easy_localization: ^3.0.3
   faker: ^2.1.0
-  fapshi_pay: ^0.1.1
+  # fapshi_pay: ^0.1.1
+  fapshi_pay:
+    path: ../sdks/fapshi_pay
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.0
   flutter_bloc: ^8.1.5
+  flutter_dotenv: ^5.1.0
   flutter_screenutil: ^5.9.0
   flutter_svg: ^2.0.3
   flutterwave_standard: ^1.0.8
@@ -84,7 +87,7 @@ flutter:
     - assets/translations/
     - assets/data/
     - .env
-    - .env.dev
+    - .dev.env
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

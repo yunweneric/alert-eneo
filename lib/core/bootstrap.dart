@@ -1,4 +1,5 @@
 import 'package:eneo_fails/core/application.dart';
+import 'package:eneo_fails/core/config.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ Future bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await EasyLocalization.ensureInitialized();
+
+  AppConfig.init();
 
   ServiceLocators.register();
 

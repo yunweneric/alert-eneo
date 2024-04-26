@@ -80,16 +80,43 @@ class AppSheet {
       padding: kPadding(20.w, 10.h),
       child: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
-              Icons.error_outline,
+              Icons.error,
               color: Theme.of(context).colorScheme.error,
               size: 90,
             ),
             kh20Spacer(),
-            Text(title, style: Theme.of(context).textTheme.displayMedium),
+            Text(title, style: Theme.of(context).textTheme.displayMedium, textAlign: TextAlign.center),
             kh20Spacer(),
-            Text(desc, style: Theme.of(context).textTheme.bodyMedium),
+            Text(desc, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static showSuccessSheet({required BuildContext context, required String desc, required String title, Function? onOkay}) {
+    return simpleModal(
+      context: context,
+      height: 400.h,
+      padding: kPadding(20.w, 10.h),
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.check_circle,
+              color: EneoFailsColor.kSuccess,
+              size: 90,
+            ),
+            kh20Spacer(),
+            Text(title, style: Theme.of(context).textTheme.displayMedium, textAlign: TextAlign.center),
+            kh20Spacer(),
+            Text(desc, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
           ],
         ),
       ),

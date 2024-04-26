@@ -1,10 +1,14 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:eneo_fails/core/config.dart';
+import 'package:eneo_fails/shared/components/bottom_sheets.dart';
 import 'package:eneo_fails/shared/components/button.dart';
+import 'package:eneo_fails/shared/utils/colors.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:fapshi_pay/fapshi_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
+import 'package:go_router/go_router.dart';
 
 class DonationScreen extends StatefulWidget {
   const DonationScreen({super.key});
@@ -14,23 +18,44 @@ class DonationScreen extends StatefulWidget {
 }
 
 class _DonationScreenState extends State<DonationScreen> {
-  handlePaymentInitialization() async {
-    final Customer customer = Customer(name: "Flutterwave Developer", phoneNumber: "1234566677777", email: "customer@customer.com");
-    final Flutterwave flutterwave = Flutterwave(
+  int totalAmount = 0;
+  String readableAmount = "XAF0";
+  TextEditingController amount_controller = TextEditingController();
+
+  loadingUI(String text) {
+    AppSheet.simpleModal(
       context: context,
-      publicKey: "Public Key-here",
-      currency: "currency-here",
-      redirectUrl: "add-your-redirect-url-here",
-      txRef: "add-your-unique-reference-here",
-      amount: "3000",
-      customer: customer,
-      paymentOptions: "ussd, card, barter, payattitude",
-      customization: Customization(title: "My Payment"),
-      isTestMode: true,
+      isDismissible: false,
+      height: 300.h,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+          kh10Spacer(),
+          Text(text, textAlign: TextAlign.center),
+        ],
+      ),
     );
   }
 
-  TextEditingController _amount_controller = TextEditingController();
+  errorUI(String desc) {
+    AppSheet.showErrorSheet(
+      context: context,
+      title: "Donation Status",
+      desc: desc,
+      onOkay: () => context.pop(),
+    );
+  }
+
+  successUI(String desc) {
+    AppSheet.showSuccessSheet(
+      context: context,
+      title: "Donation Status",
+      desc: desc,
+      onOkay: () => context.pop(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +71,20 @@ class _DonationScreenState extends State<DonationScreen> {
               kh20Spacer(),
               Text("Support Us!", style: Theme.of(context).textTheme.displayMedium),
               kh10Spacer(),
-              Text(
-                "Supporting us, helps us build a better AI for predicting electricity outages in Cameroon",
-                // style: Theme.of(context).textTheme.bodySmall,
-              ),
+              Text("Supporting us, helps us build a better AI for predicting electricity outages in Cameroon"),
               kh20Spacer(),
               kh20Spacer(),
               kh20Spacer(),
               kh20Spacer(),
               kh20Spacer(),
               TextField(
+                controller: amount_controller,
                 keyboardAppearance: Brightness.dark,
-                controller: _amount_controller,
                 inputFormatters: [
                   CurrencyTextInputFormatter(
                     locale: 'ko',
                     decimalDigits: 0,
-                    symbol: 'FCFA',
+                    symbol: 'XAF',
                   )
                 ],
                 keyboardType: TextInputType.number,
@@ -70,26 +92,63 @@ class _DonationScreenState extends State<DonationScreen> {
                 decoration: InputDecoration(
                   hintText: "Enter amount",
                   prefixIcon: Icon(Icons.attach_money_rounded),
-                  // prefix: Container(color: Colors.teal, height: 45.h, child: Text("Enter Amount")),
-                  // suffix: Text("FCFA"),
                   hintStyle: Theme.of(context).textTheme.labelMedium,
                 ),
+                onChanged: (String val) {
+                  if (val.isNotEmpty) {
+                    String formattedAmount = val.split("XAF").join("").split(",").join("").trim();
+                    setState(() {
+                      readableAmount = val;
+                      totalAmount = int.parse(formattedAmount);
+                    });
+                  }
+                },
               ),
-              kh10Spacer(),
-              // AppButtons.submitButton(
-              //   context: context,
-              //   onPressed: () {},
-              //   text: "Donate",
-              // )
-
+              kh20Spacer(),
               FapshiPay(
-                amount: int.parse(_amount_controller.text),
+                amount: totalAmount,
                 phone: "670912935",
-                env: AppEnv.DEV,
-                sandboxApiUser: sandboxApiUser,
-                sandboxApiKey: sandboxApiKey,
-                liveApiUser: liveApiUser,
-                liveApiKey: liveApiKey,
+                env: AppEnv.dev,
+                sandboxApiUser: AppConfig.devApiUser,
+                sandboxApiKey: AppConfig.devApiKey,
+                liveApiUser: AppConfig.apiUser,
+                liveApiKey: AppConfig.apiKey,
+                title: "Donate Now",
+                icon: Icon(Icons.payment, color: EneoFailsColor.kWhite),
+                textStyle: TextStyle(color: EneoFailsColor.kWhite),
+                initialLoadingUI: () => loadingUI("Loading ..."),
+                checkPaymentLoadingUI: () {
+                  context.pop();
+                  loadingUI("Checking donation status!");
+                },
+                errorUI: (message) {
+                  context.pop();
+                  errorUI(message);
+                },
+                successUI: (paymentResponse) {
+                  context.pop();
+                  successUI("Thank you for donating ${paymentResponse.amount} to our project!");
+                },
+                buttonStyle: ElevatedButton.styleFrom(
+                  padding: kPadding(10.w, 15.h),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+                onCheckPaymentSuccess: ((paymentResponse) {
+                  setState(() {
+                    readableAmount = "0XAF";
+                    totalAmount = 0;
+                    amount_controller.clear();
+                  });
+                }),
+              ),
+              kh20Spacer(),
+              Center(
+                child: Text(
+                  "Thank you for donating $readableAmount to our project!",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
             ],
           ),
