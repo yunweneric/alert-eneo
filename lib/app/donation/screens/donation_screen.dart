@@ -1,6 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:eneo_fails/shared/components/button.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
+import 'package:fapshi_pay/fapshi_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
@@ -29,6 +30,8 @@ class _DonationScreenState extends State<DonationScreen> {
     );
   }
 
+  TextEditingController _amount_controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +44,7 @@ class _DonationScreenState extends State<DonationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               kh20Spacer(),
-              Text(
-                "Support Us!",
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
+              Text("Support Us!", style: Theme.of(context).textTheme.displayMedium),
               kh10Spacer(),
               Text(
                 "Supporting us, helps us build a better AI for predicting electricity outages in Cameroon",
@@ -57,6 +57,7 @@ class _DonationScreenState extends State<DonationScreen> {
               kh20Spacer(),
               TextField(
                 keyboardAppearance: Brightness.dark,
+                controller: _amount_controller,
                 inputFormatters: [
                   CurrencyTextInputFormatter(
                     locale: 'ko',
@@ -75,11 +76,21 @@ class _DonationScreenState extends State<DonationScreen> {
                 ),
               ),
               kh10Spacer(),
-              AppButtons.submitButton(
-                context: context,
-                onPressed: () {},
-                text: "Donate",
-              )
+              // AppButtons.submitButton(
+              //   context: context,
+              //   onPressed: () {},
+              //   text: "Donate",
+              // )
+
+              FapshiPay(
+                amount: int.parse(_amount_controller.text),
+                phone: "670912935",
+                env: AppEnv.DEV,
+                sandboxApiUser: sandboxApiUser,
+                sandboxApiKey: sandboxApiKey,
+                liveApiUser: liveApiUser,
+                liveApiKey: liveApiKey,
+              ),
             ],
           ),
         ),
