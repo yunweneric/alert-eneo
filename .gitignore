@@ -50,4 +50,3 @@ app.*.map.json
 .*env.dev
 .env
 .env.dev
-.env
