@@ -2,7 +2,6 @@ import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bl
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/route_names.dart';
 import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
-import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';

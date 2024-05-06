@@ -5,6 +5,7 @@ import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bl
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/router.dart';
 import 'package:eneo_fails/shared/components/navigation/navigation_bar_bloc.dart';
+import 'package:eneo_fails/shared/utils/log_util.dart';
 import 'package:eneo_fails/shared/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +43,7 @@ class _EneoFailsAppState extends State<EneoFailsApp> {
       ],
       child: BlocBuilder<EneoOutageBloc, EneoOutageState>(
         builder: (context, state) {
+          logI(state);
           return ScreenUtilInit(
             useInheritedMediaQuery: true,
             designSize: Size(360, 690),

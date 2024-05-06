@@ -46,3 +46,9 @@ class EneoOutageGetUserLoaded extends EneoOutageState {
 
   EneoOutageGetUserLoaded({required this.userOutage});
 }
+
+class CheckBackGroundUserEneoOutageLoading extends EneoOutageState {}
+
+class CheckBackGroundUserEneoOutageError extends EneoOutageState {}
+
+class CheckBackGroundUserEneoOutageSuccuss extends EneoOutageState {}

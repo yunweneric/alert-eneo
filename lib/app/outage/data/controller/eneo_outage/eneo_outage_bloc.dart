@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:eneo_fails/app/location/data/model/location_model/location_model.dart';
 import 'package:eneo_fails/app/location/data/repositories/location_repository.dart';
+import 'package:eneo_fails/app/notification/data/controller/bloc/notification_bloc.dart';
 import 'package:eneo_fails/app/outage/data/models/eneo_outage_model/eneo_outage_model.dart';
 import 'package:eneo_fails/app/outage/data/models/eneo_outage_regions/eneo_outage_regions.dart';
 import 'package:eneo_fails/app/outage/data/repositories/outage_repository.dart';
 import 'package:eneo_fails/shared/data/models/user_outage_model.dart';
+import 'package:eneo_fails/shared/utils/log_util.dart';
 import 'package:flutter/material.dart';
 
 part 'eneo_outage_event.dart';
@@ -13,6 +15,7 @@ part 'eneo_outage_state.dart';
 class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
   final OutageRepository _outageRepository;
   final LocationRepository _locationRepository;
+  final NotificationBloc _notificationBloc;
   List<EneoOutageModel> outages = [];
   List<EneoOutageModel> searchOutages = [];
   UserOutage? userOutage;
@@ -34,11 +37,11 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
   EneoOutageRegion? selectedRegion;
   EneoOutageRegion? defaultRegion;
 
-  EneoOutageBloc(this._outageRepository, this._locationRepository) : super(EneoOutageInitial()) {
+  EneoOutageBloc(this._outageRepository, this._locationRepository, this._notificationBloc) : super(EneoOutageInitial()) {
     on<EneoOutageEvent>((event, emit) {});
 
     on<SetEneoOutageRegionEvent>((event, emit) async {
-      LocationModel? location = await _locationRepository.getUserLocation(event.context);
+      LocationModel? location = await _locationRepository.getUserLocation(context: event.context);
       if (location == null) {
         emit(EneoOutageGetUserError(message: "Location not found!"));
         return;
@@ -86,7 +89,7 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
     on<GetOutUserEneoOutageEvent>((event, emit) async {
       emit(EneoOutageGetUserLoading());
       try {
-        LocationModel? location = await _locationRepository.getUserLocation(event.context);
+        LocationModel? location = await _locationRepository.getUserLocation(context: event.context);
         if (location == null) {
           emit(EneoOutageGetUserError(message: "Location not found!"));
           return;
@@ -104,6 +107,23 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
         emit(EneoOutageGetUserLoaded(userOutage: userOutage!));
       } catch (e) {
         emit(EneoOutageGetUserError(message: e.toString()));
+      }
+    });
+    on<CheckBackGroundUserEneoOutageEvent>((event, emit) async {
+      try {
+        emit(CheckBackGroundUserEneoOutageLoading());
+        LocationModel? location = await _locationRepository.getUserLocation();
+        if (location == null) return;
+
+        List<EneoOutageModel> new_outages = await _outageRepository.getOutages(data: {"localite": location.placemark!.locality!});
+        bool hasElectricity = new_outages.length == 0;
+        userOutage = UserOutage(hasElectricity: hasElectricity, userLocation: location);
+
+        emit(CheckBackGroundUserEneoOutageSuccuss());
+        _notificationBloc.add(ShowUserBackgroundOutageNotificationEvent(userOutage!));
+      } catch (e) {
+        emit(CheckBackGroundUserEneoOutageError());
+        logError(e);
       }
     });
   }

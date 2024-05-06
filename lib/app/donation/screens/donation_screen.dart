@@ -1,13 +1,11 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:eneo_fails/core/config.dart';
 import 'package:eneo_fails/shared/components/bottom_sheets.dart';
-import 'package:eneo_fails/shared/components/button.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:fapshi_pay/fapshi_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:go_router/go_router.dart';
 
 class DonationScreen extends StatefulWidget {

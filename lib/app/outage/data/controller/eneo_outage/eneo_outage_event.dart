@@ -32,3 +32,7 @@ class GetOutUserEneoOutageEvent extends EneoOutageEvent {
 
   GetOutUserEneoOutageEvent(this.context);
 }
+
+class CheckBackGroundUserEneoOutageEvent extends EneoOutageEvent {
+  CheckBackGroundUserEneoOutageEvent();
+}

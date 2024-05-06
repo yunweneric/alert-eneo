@@ -11,12 +11,12 @@ import 'package:url_launcher/url_launcher.dart';
 class LocationService extends BaseService {
   LocationService({required super.dio});
 
-  Future<Map<String, dynamic>?> determineCurrentLocation({required BuildContext context}) async {
+  Future<Map<String, dynamic>?> determineCurrentLocation({BuildContext? context}) async {
     try {
       // Test if location services are enabled.
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        AppSheet.showErrorSheet(context: context, desc: "Please enable location services on your device", title: "Enable LocationModel");
+        if (context != null) AppSheet.showErrorSheet(context: context, desc: "Please enable location services on your device", title: "Enable LocationModel");
         return null;
       }
 
@@ -24,19 +24,20 @@ class LocationService extends BaseService {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          AppSheet.showErrorSheet(context: context, desc: "Please enable location services on your device", title: "Enable LocationModel");
+          if (context != null) AppSheet.showErrorSheet(context: context, desc: "Please enable location services on your device", title: "Enable LocationModel");
           permission = await Geolocator.requestPermission();
         }
         return null;
       }
 
       if (permission == LocationPermission.deniedForever) {
-        AppSheet.showErrorSheet(
-          context: context,
-          desc: "Your location permissions have been denied. Please enable them now!",
-          title: "Enable LocationModel",
-          onOkay: () => Geolocator.openAppSettings(),
-        );
+        if (context != null)
+          AppSheet.showErrorSheet(
+            context: context,
+            desc: "Your location permissions have been denied. Please enable them now!",
+            title: "Enable LocationModel",
+            onOkay: () => Geolocator.openAppSettings(),
+          );
         return null;
       }
       logI("Finding location2");

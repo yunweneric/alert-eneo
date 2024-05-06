@@ -35,7 +35,6 @@ dependencies:
   dio: ^5.4.2+1
   easy_localization: ^3.0.3
   faker: ^2.1.0
-  # fapshi_pay: ^0.1.1
   fapshi_pay:
     path: ../sdks/fapshi_pay
   flutter:
@@ -43,8 +42,10 @@ dependencies:
   flutter_animate: ^4.5.0
   flutter_bloc: ^8.1.5
   flutter_dotenv: ^5.1.0
+  flutter_local_notifications: ^17.1.1
   flutter_screenutil: ^5.9.0
   flutter_svg: ^2.0.3
+  flutter_timezone: ^1.0.8
   flutterwave_standard: ^1.0.8
   geocoding: ^3.0.0
   geolocator: ^11.0.0
@@ -59,10 +60,12 @@ dependencies:
   maps_launcher: ^2.2.1
   modal_bottom_sheet: ^3.0.0
   package_info_plus: ^6.0.0
+  permission_handler: ^11.3.1
   share_plus: ^8.0.2
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
   url_launcher: ^6.2.5
+  workmanager: ^0.5.2
 
 dev_dependencies:
   build_runner: ^2.4.9
