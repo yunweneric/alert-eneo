@@ -1,1 +1,14 @@
-{}
+{
+    "onboarding": {
+        "title_1": "Quand est la prochaine \ncoupure de courant Eneo?",
+        "title_2": "Recevez une notification \nà l'avance",
+        "title_3": "Maintenant.. \nCommençons!",
+        "get_started": "Commencer"
+    },
+    "notifications": {
+        "outage_title_failure": "Coupure d'électricité",
+        "outage_title_available": "Pas de coupure d'électricité",
+        "outage_out_description": "Vous pourriez être privé d'électricité aujourd'hui !",
+        "outage_in_description": "Aucun travail d'électricité n'a été programmé autour de chez vous. Vous pourriez ne pas subir de coupure aujourd'hui !"
+    }
+}

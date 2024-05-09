@@ -7,7 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 @pragma('vm:entry-point')
 initializeBackgroundTask() {
   EneoOutageBloc eneoOutageBloc = ServiceLocators.registerBackGround();
-  BackGroundService.initialize(eneoOutageBloc);
+  BackGroundService.initializeWorkManager(eneoOutageBloc);
 }
 
 void main() async {

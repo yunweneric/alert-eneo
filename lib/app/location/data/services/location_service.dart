@@ -1,3 +1,4 @@
+
 import 'package:eneo_fails/app/location/data/model/location_model/location_model.dart';
 import 'package:eneo_fails/shared/components/bottom_sheets.dart';
 import 'package:eneo_fails/shared/data/services/base_service.dart';
@@ -40,11 +41,17 @@ class LocationService extends BaseService {
           );
         return null;
       }
-      logI("Finding location2");
+      // logI("Finding location2");
 
-      Position position = await Geolocator.getCurrentPosition(timeLimit: Duration(seconds: 20));
+      Geolocator.getPositionStream().listen((event) {
+        logI(event.toJson());
+      });
+      Position position = await Geolocator.getCurrentPosition(
+        timeLimit: Duration(seconds: 20),
+        forceAndroidLocationManager: true,
+      );
 
-      logI(position.toJson());
+      // logI(position.toJson());
 
       Placemark? placemark = await getStreetNameFromCoordinates(position.latitude, position.longitude);
 

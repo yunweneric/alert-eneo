@@ -1,4 +1,3 @@
-import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/route_names.dart';
 import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
@@ -43,8 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void routeUser() async {
     LocalStorageService localStorageService = getIt.get<LocalStorageService>();
+    localStorageService.saveInit(false);
     bool hasInit = await localStorageService.getInit();
-    getIt.get<EneoOutageBloc>().add(SetEneoOutageRegionEvent(context));
+    // getIt.get<EneoOutageBloc>().add(SetEneoOutageRegionEvent(context));
     Future.delayed(Duration(seconds: 2), () => context.go(hasInit ? AppRoutes.home : AppRoutes.start));
   }
 

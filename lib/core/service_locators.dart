@@ -3,7 +3,7 @@ import 'package:eneo_fails/app/donation/data/controller/donation/donation_bloc.d
 import 'package:eneo_fails/app/donation/data/repository/donate_repository.dart';
 import 'package:eneo_fails/app/location/data/repositories/location_repository.dart';
 import 'package:eneo_fails/app/location/data/services/location_service.dart';
-import 'package:eneo_fails/app/notification/data/controller/bloc/notification_bloc.dart';
+import 'package:eneo_fails/app/notification/data/controller/notification/notification_bloc.dart';
 import 'package:eneo_fails/app/notification/data/repository/local_notification_repository.dart';
 import 'package:eneo_fails/app/notification/data/services/local_notification_service.dart';
 import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';

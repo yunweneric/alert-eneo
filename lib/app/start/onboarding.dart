@@ -3,6 +3,7 @@ import 'package:eneo_fails/routes/route_names.dart';
 import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
+import 'package:eneo_fails/shared/utils/language_util.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,11 +30,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   LocalStorageService localStorageService = getIt.get<LocalStorageService>();
 
   List<PageItem> items = [
-    PageItem(title: "When is the next \nEneo Power Outage?"),
-    PageItem(title: "Find out power outage\nin other places"),
-    PageItem(title: "Know when \nElectricity will be back!"),
-    PageItem(title: "Get Notified \nAhead of time"),
-    PageItem(title: "Now... \nLet's Get Started!"),
+    PageItem(title: "onboarding.title_1"),
+    PageItem(title: "onboarding.title_2"),
+    PageItem(title: "onboarding.title_3"),
+    // PageItem(title: "Find out power outage\nin other places"),
+    // PageItem(title: "Know when \nElectricity will be back!"),
+    // PageItem(title: "Get Notified \nAhead of time"),
+    // PageItem(title: "Now... \nLet's Get Started!"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      items[i].title,
+                      LangUtil.trans(items[i].title),
                       style: GoogleFonts.inter(fontSize: 25.sp, color: EneoFailsColor.kWhite, fontWeight: FontWeight.w700),
                     ),
                   ],
@@ -113,11 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             top: -20,
             left: 0,
             right: 0,
-            child: Container(
-              child: child,
-              height: kHeight(context) / 1.2,
-              width: kWidth(context),
-            ),
+            child: Container(child: child, height: kHeight(context) / 1.2, width: kWidth(context)),
           ),
           Positioned(
             bottom: 0,
@@ -132,23 +131,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         onboardLine(isActive: currentIndex == 0 ? true : false),
                         onboardLine(isActive: currentIndex == 1 ? true : false),
                         onboardLine(isActive: currentIndex == 2 ? true : false),
-                        onboardLine(isActive: currentIndex == 3 ? true : false),
-                        onboardLine(isActive: currentIndex == 4 ? true : false),
+                        // onboardLine(isActive: currentIndex == 3 ? true : false),
+                        // onboardLine(isActive: currentIndex == 4 ? true : false),
                       ],
                     ),
                   ),
                   GestureDetector(
-                    onTap: currentIndex == 4
+                    onTap: currentIndex == items.length - 1
                         ? () {
                             context.go(AppRoutes.home);
                             localStorageService.saveInit(true);
                           }
-                        : () => controller.animateToPage(4, duration: Duration(milliseconds: 500), curve: Curves.linear),
+                        : () => controller.animateToPage(items.length, duration: Duration(milliseconds: 500), curve: Curves.linear),
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 300),
-                      padding: currentIndex == 4 ? kPadding(15.w, 12.w) : kPadding(15.w, 15.w),
+                      padding: currentIndex == items.length - 1 ? kPadding(15.w, 12.w) : kPadding(15.w, 15.w),
                       decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: radiusM()),
-                      child: currentIndex == 4 ? Text("Get Started") : Icon(Icons.arrow_forward, color: EneoFailsColor.kWhite, size: 20),
+                      child: currentIndex == items.length - 1
+                          ? Text(
+                              LangUtil.trans("onboarding.get_started"),
+                            )
+                          : Icon(Icons.arrow_forward, color: EneoFailsColor.kWhite, size: 20),
                     ),
                   )
                 ],

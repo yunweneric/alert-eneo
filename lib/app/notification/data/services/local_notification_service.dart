@@ -8,7 +8,6 @@ import 'package:eneo_fails/shared/utils/log_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rxdart/subjects.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -128,12 +127,11 @@ class LocalNotificationService {
       android: this.simpleAndroidNotificationDetails,
       iOS: simpleIOSNotificationDetails,
     );
+
     await flutterLocalNotificationsPlugin.show(
       id++,
       LangUtil.trans(title),
       LangUtil.trans(description),
-      // title,
-      // description,
       notificationDetails,
       payload: payload,
     );
@@ -145,12 +143,6 @@ class LocalNotificationService {
     Map<String, dynamic> response = json.decode(notificationResponse.payload!);
     BaseNotificationModel notification = BaseNotificationModel.fromJson(response);
     String notificationType = notification.type;
-
-    if (notificationType == NotificationType.TRIP_REMINDER || notificationType == NotificationType.TRIP_START || notificationType == NotificationType.TRIP_STOP) {
-      try {} catch (e) {
-        logError(e);
-      }
-    }
 
     if (notificationType == NotificationType.EneoOutage) {
       // final kycDetails = KycNotification.fromJson(notification.data);

@@ -1,1 +1,14 @@
-{}
+{
+    "onboarding": {
+        "title_1": "When is the next \nEneo Power Outage?",
+        "title_2": "Get Notified \nAhead of time",
+        "title_3": "Now.. \nLet's Get Started!",
+        "get_started": "Get Started"
+    },
+    "notifications": {
+        "outage_title_failure": "Ops! Electricity Outage",
+        "outage_title_available": "Hurray! No Electricity Outage",
+        "outage_out_description": "You may be out of electricity today!",
+        "outage_in_description": "No electricity work has has been programmed around you. You might not experience outage today!"
+    }
+}

@@ -4,6 +4,7 @@ import 'package:eneo_fails/core/application.dart';
 import 'package:eneo_fails/core/config.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,8 +12,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:workmanager/workmanager.dart';
 
 Future bootstrap(Function backGroundTask) async {
-  // await Firebase.initializeApp(options: await DefaultFirebaseOptions.currentPlatform);
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await EasyLocalization.ensureInitialized();
@@ -31,16 +30,19 @@ Future bootstrap(Function backGroundTask) async {
 
   getIt.get<LocalNotificationService>().initialize();
 
-  await Workmanager().initialize(backGroundTask, isInDebugMode: true);
-  BackGroundService.registerPeriodicTask();
-  BackGroundService.registerOneOffTask();
+  await Workmanager().initialize(backGroundTask, isInDebugMode: kDebugMode);
+  BackGroundService.initializeBackgroundService();
 
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en'), Locale('fr')],
       path: 'assets/translations',
       fallbackLocale: Locale('en'),
-      child: EneoFailsApp(),
+      child: Builder(
+        builder: (context) {
+          return EneoFailsApp();
+        },
+      ),
       errorWidget: (error) {
         print(error);
         return Placeholder(

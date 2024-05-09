@@ -1,11 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:eneo_fails/app/location/data/model/location_model/location_model.dart';
 import 'package:eneo_fails/app/location/data/repositories/location_repository.dart';
-import 'package:eneo_fails/app/notification/data/controller/bloc/notification_bloc.dart';
+import 'package:eneo_fails/app/notification/data/controller/notification/notification_bloc.dart';
 import 'package:eneo_fails/app/outage/data/models/eneo_outage_model/eneo_outage_model.dart';
 import 'package:eneo_fails/app/outage/data/models/eneo_outage_regions/eneo_outage_regions.dart';
 import 'package:eneo_fails/app/outage/data/repositories/outage_repository.dart';
 import 'package:eneo_fails/shared/data/models/user_outage_model.dart';
+import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
 import 'package:eneo_fails/shared/utils/log_util.dart';
 import 'package:flutter/material.dart';
 
@@ -94,6 +95,7 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
           emit(EneoOutageGetUserError(message: "Location not found!"));
           return;
         }
+        await LocalStorageService.saveLocation(location);
         // Place
         List<EneoOutageRegion> userRegion = eneoOutageRegion.where((element) => element.name.contains(location.placemark!.locality!)).toList();
 

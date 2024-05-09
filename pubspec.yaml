@@ -32,6 +32,7 @@ dependencies:
   cached_network_image: ^3.0.0
   cupertino_icons: ^1.0.2
   currency_text_input_formatter: ^2.1.11
+  device_info_plus: ^10.1.0
   dio: ^5.4.2+1
   easy_localization: ^3.0.3
   faker: ^2.1.0
@@ -40,6 +41,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.0
+  flutter_background_service: ^5.0.5
   flutter_bloc: ^8.1.5
   flutter_dotenv: ^5.1.0
   flutter_local_notifications: ^17.1.1

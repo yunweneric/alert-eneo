@@ -137,22 +137,36 @@ class AppSheet {
         child: ListView.builder(
           itemCount: outageRegions.length,
           itemBuilder: (c, i) {
-            return Column(
-              children: [
-                RadioListTile.adaptive(
-                  // shape: RoundedRectangleBorder(borderRadius: radiusM()),
-                  // tileColor: Theme.of(context).cardColor,
-                  title: Text(outageRegions[i].name),
-                  controlAffinity: ListTileControlAffinity.trailing,
-                  value: outageRegions[i].id == selectedOutageRegions?.id ? 1 : 0,
-                  groupValue: 1,
-                  onChanged: (itemIndex) {
-                    context.pop();
-                    onChanged!(outageRegions[i]);
-                  },
-                ),
-                kh10Spacer(),
-              ],
+            return GestureDetector(
+              onTap: () {
+                context.pop();
+                onChanged!(outageRegions[i]);
+              },
+              child: Column(
+                children: [
+                  ListTile(
+                    dense: true,
+                    leading: Text(outageRegions[i].name, style: Theme.of(context).textTheme.displaySmall),
+                    trailing: Container(
+                      padding: EdgeInsets.all(2.r),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: outageRegions[i].id == selectedOutageRegions?.id ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
+                          width: 2.w,
+                        ),
+                      ),
+                      height: 20.h,
+                      width: 20.h,
+                      child: CircleAvatar(
+                        radius: 10.r,
+                        backgroundColor: outageRegions[i].id == selectedOutageRegions?.id ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
+                      ),
+                    ),
+                  ),
+                  khSpacer(5.h),
+                ],
+              ),
             );
           },
         ),

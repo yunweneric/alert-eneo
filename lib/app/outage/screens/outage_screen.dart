@@ -30,9 +30,9 @@ class _OutageListPageState extends State<OutageListPage> {
   @override
   void initState() {
     if (eneoOutageBloc.selectedRegion != null) {
-      // eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.selectedRegion!));
+      eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.selectedRegion!));
     } else {
-      // eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.eneoOutageRegion.first));
+      eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.eneoOutageRegion.first));
     }
 
     focusNode.addListener(() {
@@ -188,9 +188,7 @@ class _OutageListPageState extends State<OutageListPage> {
                 });
               },
             ),
-            SliverToBoxAdapter(
-              child: SizedBox(height: 100.h),
-            )
+            SliverToBoxAdapter(child: SizedBox(height: 100.h))
           ],
         ),
       ),
@@ -204,6 +202,7 @@ class _OutageListPageState extends State<OutageListPage> {
         children: [
           ListTile(
             tileColor: Theme.of(context).cardColor,
+            dense: true,
             shape: RoundedRectangleBorder(borderRadius: radiusVal(10.r)),
             title: Row(
               children: [
