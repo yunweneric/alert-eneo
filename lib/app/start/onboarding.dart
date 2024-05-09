@@ -141,12 +141,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   GestureDetector(
                     onTap: () async {
                       if (currentIndex == items.length - 1) {
-                        bool hasPermission = await Permission.notification.isGranted;
-                        if (!hasPermission) Permission.notification.request();
-                        getIt.get<LocalNotificationService>().initialize();
-
-                        context.go(AppRoutes.home);
+                        bool hasNotificationPermission = await Permission.notification.isGranted;
+                        bool hasLocationPermission = await Permission.location.isGranted;
                         localStorageService.saveInit(true);
+                        if (hasNotificationPermission && hasLocationPermission) {
+                          context.go(AppRoutes.home);
+                        } else
+                          context.go(AppRoutes.permissions);
                       } else {
                         controller.animateToPage(items.length, duration: Duration(milliseconds: 500), curve: Curves.linear);
                       }

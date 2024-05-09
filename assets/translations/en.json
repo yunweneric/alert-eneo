@@ -10,5 +10,12 @@
         "outage_title_available": "Hurray! No Electricity Outage",
         "outage_out_description": "You may be out of electricity today!",
         "outage_in_description": "No electricity work has has been programmed around you. You might not experience outage today!"
+    },
+    "permissions": {
+        "location_title": "Allow Location",
+        "location_description": "We need access to your location so that we can find outages at and around you",
+        "notification_title": "Allow notification",
+        "notification_description": "We need access to your notification so that we can keep you informed outages at and around you",
+        "enable": "Enable"
     }
 }

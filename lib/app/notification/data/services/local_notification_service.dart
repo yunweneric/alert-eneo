@@ -98,6 +98,7 @@ class LocalNotificationService {
       iOS: initializationSettingsDarwin,
       macOS: initializationSettingsDarwin,
     );
+
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: notificationTapBackground,

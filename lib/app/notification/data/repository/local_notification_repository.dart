@@ -8,6 +8,10 @@ class LocalNotificationRepository {
 
   LocalNotificationRepository(this._localNotificationService);
 
+  void initializeNotifications() {
+    _localNotificationService.initialize();
+  }
+
   void showNotification(BaseNotificationModel notification) {
     _localNotificationService.showSimpleNotification(
       title: notification.title,

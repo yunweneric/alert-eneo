@@ -1,7 +1,11 @@
 import 'dart:ui';
 
 import 'package:eneo_fails/app/donation/data/controller/donation/donation_bloc.dart';
+import 'package:eneo_fails/app/location/data/controller/bloc/location_bloc.dart';
+import 'package:eneo_fails/app/notification/data/controller/notification/notification_bloc.dart';
+import 'package:eneo_fails/app/notification/data/services/background_service.dart';
 import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';
+import 'package:eneo_fails/app/permissions/data/bloc/permissions_bloc.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/router.dart';
 import 'package:eneo_fails/shared/components/navigation/navigation_bar_bloc.dart';
@@ -40,8 +44,17 @@ class _EneoFailsAppState extends State<EneoFailsApp> {
         BlocProvider(create: (context) => getIt.get<NavigationBarBloc>()),
         BlocProvider(create: (context) => getIt.get<EneoOutageBloc>()),
         BlocProvider(create: (context) => getIt.get<DonationBloc>()),
+        BlocProvider(create: (context) => getIt.get<LocationBloc>()),
+        BlocProvider(create: (context) => getIt.get<PermissionsBloc>()),
+        BlocProvider(create: (context) => getIt.get<NotificationBloc>()),
       ],
-      child: BlocBuilder<EneoOutageBloc, EneoOutageState>(
+      child: BlocConsumer<EneoOutageBloc, EneoOutageState>(
+        listener: ((context, state) async {
+          if (state is EneoOutageGetUserLoaded) {
+            // await BackGroundService.initializeBackgroundService();
+            BackGroundService.registerOneOffTask();
+          }
+        }),
         builder: (context, state) {
           logI(state);
           return ScreenUtilInit(

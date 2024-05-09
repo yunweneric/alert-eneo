@@ -10,5 +10,12 @@
         "outage_title_available": "Pas de coupure d'électricité",
         "outage_out_description": "Vous pourriez être privé d'électricité aujourd'hui !",
         "outage_in_description": "Aucun travail d'électricité n'a été programmé autour de chez vous. Vous pourriez ne pas subir de coupure aujourd'hui !"
+    },
+    "permissions": {
+        "location_title": "Autoriser la localisation",
+        "location_description": "Nous avons besoin d'accéder à votre position afin de détecter les ncoupure chez vous et autour de vous.",
+        "notification_title": "Autoriser les notifications",
+        "notification_description": "Nous avons besoin d'accéder à vos notifications afin de vous tenir informé des ncoupure chez vous et autour de vous.",
+        "enable": "Activer"
     }
 }

@@ -6,6 +6,7 @@ import 'package:eneo_fails/shared/data/models/user_outage_model.dart';
 import 'package:eneo_fails/shared/utils/json_loader.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'notification_event.dart';
 part 'notification_state.dart';
@@ -13,6 +14,12 @@ part 'notification_state.dart';
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   final LocalNotificationRepository _localNotificationRepository;
   NotificationBloc(this._localNotificationRepository) : super(NotificationInitial()) {
+    on<InitializeNotificationEvent>((event, emit) async {
+      bool hasPermission = await Permission.notification.isGranted;
+      if (!hasPermission) await Permission.notification.request();
+      _localNotificationRepository.initializeNotifications();
+      emit(AllowNotificationComplete());
+    });
     on<ShowUserBackgroundOutageNotificationEvent>((event, emit) async {
       String deviceLocale = PlatformDispatcher.instance.locale.languageCode;
       final assetLoader = JsonAssetLoader();

@@ -1,5 +1,6 @@
 import 'package:eneo_fails/app/donation/screens/donation_screen.dart';
 import 'package:eneo_fails/app/home/widgets/home_layout.dart';
+import 'package:eneo_fails/app/permissions/screens/permissions.dart';
 import 'package:eneo_fails/app/start/onboarding.dart';
 import 'package:eneo_fails/app/start/splash_screen.dart';
 import 'package:eneo_fails/routes/route_names.dart';
@@ -24,5 +25,6 @@ final routes = GoRouter(
     GoRoute(path: AppRoutes.home, pageBuilder: (context, state) => transitionEffect(state: state, child: HomeLayout())),
     GoRoute(path: AppRoutes.start, pageBuilder: (context, state) => transitionEffect(state: state, child: OnboardingScreen())),
     GoRoute(path: AppRoutes.donation, pageBuilder: (context, state) => transitionEffect(state: state, child: DonationScreen())),
+    GoRoute(path: AppRoutes.permissions, pageBuilder: (context, state) => transitionEffect(state: state, child: AppPermissionScreen())),
   ],
 );

@@ -1,25 +1,30 @@
 import 'dart:async';
 import 'dart:ui';
+
 import 'package:eneo_fails/app/notification/model/background_task_types.dart';
 import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/shared/utils/log_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 class BackGroundService {
-  static void initializeWorkManager(EneoOutageBloc _eneoOutageBloc) {
+  static void initializeWorkManager(EneoOutageBloc _eneoOutageBloc) async {
+    // final serviceInstance = await initializeBackgroundService();
     Workmanager().cancelAll();
     Workmanager().executeTask((task, inputData) async {
       try {
         switch (task) {
           case BackGroundTask.PeriodicOutage:
             FlutterBackgroundService().invoke(BackGroundTask.PeriodicOutage);
+            // serviceInstance.invoke(BackGroundTask.PeriodicOutage);
             break;
           case BackGroundTask.OneOffTask:
             FlutterBackgroundService().invoke(BackGroundTask.OneOffTask);
+            // serviceInstance.invoke(BackGroundTask.OneOffTask);
             break;
           default:
         }
@@ -46,41 +51,51 @@ class BackGroundService {
       BackGroundTask.PeriodicOutage,
       BackGroundTask.PeriodicOutage,
       frequency: Duration(minutes: 15),
-      initialDelay: Duration(minutes: 5),
     );
   }
 
   static void registerOneOffTask() {
-    Workmanager().registerOneOffTask(
-      BackGroundTask.OneOffTask,
-      BackGroundTask.OneOffTask,
-      initialDelay: Duration(minutes: 5),
-    );
+    Workmanager().registerOneOffTask(BackGroundTask.OneOffTask, BackGroundTask.OneOffTask);
   }
 
-  static Future<void> initializeBackgroundService() async {
-    try {
-      final service = FlutterBackgroundService();
+  static Future<FlutterBackgroundService> initializeBackgroundService() async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-      await service.configure(
-        androidConfiguration: AndroidConfiguration(
-          onStart: onStart,
-          autoStart: true,
-          isForegroundMode: true,
-          notificationChannelId: 'my_foreground',
-          initialNotificationTitle: 'AWESOME SERVICE',
-          initialNotificationContent: 'Initializing',
-          foregroundServiceNotificationId: 888,
-        ),
-        iosConfiguration: IosConfiguration(
-          autoStart: true,
-          onForeground: onStart,
-          onBackground: onIosBackground,
-        ),
-      );
-    } catch (e) {
-      logError(e);
-    }
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'outage_background', // id
+      'Eneo Outage Service', // title
+      description: 'This channel broadcast eneo outages', // description
+      importance: Importance.high, // importance must be at low or higher level
+    );
+    await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+
+    final service = FlutterBackgroundService();
+
+    await service.configure(
+      androidConfiguration: AndroidConfiguration(
+        // this will be executed when app is in foreground or background in separated isolate
+        onStart: onStart,
+        // auto start service
+        autoStart: true,
+        isForegroundMode: true,
+        notificationChannelId: 'outage_background',
+        initialNotificationTitle: 'Eneo Outage Service',
+        initialNotificationContent: 'Initializing',
+        foregroundServiceNotificationId: 888,
+      ),
+      iosConfiguration: IosConfiguration(
+        // auto start service
+        autoStart: true,
+        // this will be executed when app is in foreground in separated isolate
+        onForeground: onStart,
+        // you have to enable background fetch capability on xcode project
+        onBackground: onIosBackground,
+      ),
+    );
+
+    logI("initialize BackgroundService...");
+
+    return service;
   }
 
 // to ensure this is executed
@@ -103,6 +118,7 @@ class BackGroundService {
   static Future<void> onStart(ServiceInstance service) async {
     DartPluginRegistrant.ensureInitialized();
     // bring to foreground
+
     Timer.periodic(const Duration(seconds: 1), (timer) async {
       service.on(BackGroundTask.PeriodicOutage).listen((event) {
         checkOutage();

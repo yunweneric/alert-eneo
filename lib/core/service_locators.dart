@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:eneo_fails/app/donation/data/controller/donation/donation_bloc.dart';
 import 'package:eneo_fails/app/donation/data/repository/donate_repository.dart';
+import 'package:eneo_fails/app/location/data/controller/bloc/location_bloc.dart';
 import 'package:eneo_fails/app/location/data/repositories/location_repository.dart';
 import 'package:eneo_fails/app/location/data/services/location_service.dart';
 import 'package:eneo_fails/app/notification/data/controller/notification/notification_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:eneo_fails/app/notification/data/services/local_notification_ser
 import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';
 import 'package:eneo_fails/app/outage/data/repositories/outage_repository.dart';
 import 'package:eneo_fails/app/outage/data/services/outage_service.dart';
+import 'package:eneo_fails/app/permissions/data/bloc/permissions_bloc.dart';
 import 'package:eneo_fails/shared/components/navigation/navigation_bar_bloc.dart';
 import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
 import 'package:get_it/get_it.dart';
@@ -52,8 +54,12 @@ class ServiceLocators {
     DonationBloc donationBloc = DonationBloc(donationRepository);
     EneoOutageBloc _eneoOutageBloc = EneoOutageBloc(outageRepository, locationRepository, notificationBloc);
     NavigationBarBloc _navigationBarBloc = NavigationBarBloc();
+    LocationBloc _locationBloc = LocationBloc(locationRepository);
+    PermissionsBloc _permissionBloc = PermissionsBloc(notificationBloc, _locationBloc);
 
     getIt.registerSingleton<NotificationBloc>(notificationBloc);
+    getIt.registerSingleton<LocationBloc>(_locationBloc);
+    getIt.registerSingleton<PermissionsBloc>(_permissionBloc);
     getIt.registerSingleton<EneoOutageBloc>(_eneoOutageBloc);
     getIt.registerSingleton<NavigationBarBloc>(_navigationBarBloc);
     getIt.registerSingleton<DonationBloc>(donationBloc);
