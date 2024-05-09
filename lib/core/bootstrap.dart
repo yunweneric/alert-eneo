@@ -25,13 +25,12 @@ Future bootstrap(Function backGroundTask) async {
     DeviceOrientation.portraitDown,
   ]);
 
-  bool hasPermission = await Permission.notification.isGranted;
-  if (!hasPermission) Permission.notification.request();
+  // bool hasPermission = await Permission.notification.isGranted;
+  // if (!hasPermission) Permission.notification.request();
 
-  getIt.get<LocalNotificationService>().initialize();
+  // getIt.get<LocalNotificationService>().initialize();
 
   await Workmanager().initialize(backGroundTask, isInDebugMode: kDebugMode);
-  BackGroundService.initializeBackgroundService();
 
   runApp(
     EasyLocalization(

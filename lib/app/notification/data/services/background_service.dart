@@ -59,29 +59,28 @@ class BackGroundService {
   }
 
   static Future<void> initializeBackgroundService() async {
-    final service = FlutterBackgroundService();
+    try {
+      final service = FlutterBackgroundService();
 
-    await service.configure(
-      androidConfiguration: AndroidConfiguration(
-        // this will be executed when app is in foreground or background in separated isolate
-        onStart: onStart,
-        // auto start service
-        autoStart: true,
-        isForegroundMode: true,
-        notificationChannelId: 'my_foreground',
-        initialNotificationTitle: 'AWESOME SERVICE',
-        initialNotificationContent: 'Initializing',
-        foregroundServiceNotificationId: 888,
-      ),
-      iosConfiguration: IosConfiguration(
-        // auto start service
-        autoStart: true,
-        // this will be executed when app is in foreground in separated isolate
-        onForeground: onStart,
-        // you have to enable background fetch capability on xcode project
-        onBackground: onIosBackground,
-      ),
-    );
+      await service.configure(
+        androidConfiguration: AndroidConfiguration(
+          onStart: onStart,
+          autoStart: true,
+          isForegroundMode: true,
+          notificationChannelId: 'my_foreground',
+          initialNotificationTitle: 'AWESOME SERVICE',
+          initialNotificationContent: 'Initializing',
+          foregroundServiceNotificationId: 888,
+        ),
+        iosConfiguration: IosConfiguration(
+          autoStart: true,
+          onForeground: onStart,
+          onBackground: onIosBackground,
+        ),
+      );
+    } catch (e) {
+      logError(e);
+    }
   }
 
 // to ensure this is executed
@@ -113,6 +112,7 @@ class BackGroundService {
       });
     });
   }
+
   // static void checkOutage() async {
   //   try {
 

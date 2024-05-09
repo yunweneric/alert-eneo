@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void routeUser() async {
     LocalStorageService localStorageService = getIt.get<LocalStorageService>();
-    localStorageService.saveInit(false);
+    localStorageService.clear();
     bool hasInit = await localStorageService.getInit();
     // getIt.get<EneoOutageBloc>().add(SetEneoOutageRegionEvent(context));
     Future.delayed(Duration(seconds: 2), () => context.go(hasInit ? AppRoutes.home : AppRoutes.start));

@@ -4,6 +4,11 @@ import 'package:eneo_fails/app/location/data/model/location_model/location_model
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {
+  void clear() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.clear();
+  }
+
   void saveInit(bool init) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool('init', init);

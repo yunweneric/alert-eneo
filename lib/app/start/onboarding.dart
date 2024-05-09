@@ -1,3 +1,4 @@
+import 'package:eneo_fails/app/notification/data/services/local_notification_service.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/route_names.dart';
 import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PageItem {
   final String title;
@@ -137,12 +139,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: currentIndex == items.length - 1
-                        ? () {
-                            context.go(AppRoutes.home);
-                            localStorageService.saveInit(true);
-                          }
-                        : () => controller.animateToPage(items.length, duration: Duration(milliseconds: 500), curve: Curves.linear),
+                    onTap: () async {
+                      if (currentIndex == items.length - 1) {
+                        bool hasPermission = await Permission.notification.isGranted;
+                        if (!hasPermission) Permission.notification.request();
+                        getIt.get<LocalNotificationService>().initialize();
+
+                        context.go(AppRoutes.home);
+                        localStorageService.saveInit(true);
+                      } else {
+                        controller.animateToPage(items.length, duration: Duration(milliseconds: 500), curve: Curves.linear);
+                      }
+                    },
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 300),
                       padding: currentIndex == items.length - 1 ? kPadding(15.w, 12.w) : kPadding(15.w, 15.w),
