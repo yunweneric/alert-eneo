@@ -1,4 +1,5 @@
 import 'package:eneo_fails/app/home/home_screen.dart';
+import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';
 import 'package:eneo_fails/app/outage/screens/outage_screen.dart';
 import 'package:eneo_fails/app/settings/settings_screen.dart';
 import 'package:eneo_fails/core/service_locators.dart';
@@ -19,11 +20,13 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   NavigationBarBloc navigationBarBloc = getIt.get<NavigationBarBloc>();
+  final eneoOutageBloc = getIt.get<EneoOutageBloc>();
 
   FocusNode focusNode = FocusNode();
   bool keyBoardOpen = false;
   @override
   void initState() {
+    finOutagesInRegion();
     focusNode.addListener(() {
       print("HomeLayout and inactive ${focusNode.hasFocus}");
 
@@ -38,6 +41,16 @@ class _HomeLayoutState extends State<HomeLayout> {
   dispose() {
     focusNode.dispose();
     super.dispose();
+  }
+
+  finOutagesInRegion() {
+    if (eneoOutageBloc.selectedRegion != null) {
+      eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.selectedRegion!));
+    } else {
+      eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.eneoOutageRegion.first));
+    }
+    eneoOutageBloc.add(GetOutUserEneoOutageEvent(context));
+    eneoOutageBloc.add(GetOutEneoOutageEvent(regionId: eneoOutageBloc.defaultRegion?.id));
   }
 
   @override
@@ -59,7 +72,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           : SettingsScreen(),
                 ),
                 Positioned(
-                  bottom: 20,
+                  bottom: 30,
                   left: kWidth(context) / 5,
                   right: kWidth(context) / 5,
                   child: AnimatedSwitcher(

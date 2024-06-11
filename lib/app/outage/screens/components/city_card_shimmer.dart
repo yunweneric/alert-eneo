@@ -15,23 +15,21 @@ class CityOutageShimmerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: kph(10.w),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(10.r),
+      ),
       child: Shimmer.fromColors(
         highlightColor: Theme.of(context).cardColor,
         baseColor: Theme.of(context).primaryColorDark.withOpacity(0.1),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          margin: kph(10.w),
-          child: Stack(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: CardContent(title: "", desc: ""),
-              ),
-            ],
-          ),
+        child: Stack(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: CardContent(title: "", desc: ""),
+            ),
+          ],
         ),
       ),
     );

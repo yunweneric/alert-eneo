@@ -1,11 +1,9 @@
 import 'package:eneo_fails/app/notification/data/controller/notification/notification_bloc.dart';
-import 'package:eneo_fails/app/notification/data/services/local_notification_service.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/shared/utils/language_util.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class NotificationPermissionScreen extends StatelessWidget {
   const NotificationPermissionScreen({super.key});

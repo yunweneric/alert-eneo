@@ -1,4 +1,3 @@
-import 'package:eneo_fails/app/notification/data/services/local_notification_service.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/route_names.dart';
 import 'package:eneo_fails/shared/data/services/local_storage_service.dart';
@@ -58,18 +57,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             onPageChanged: (page) => setState(() => currentIndex = page),
             itemCount: items.length,
             itemBuilder: (c, i) {
-              return Container(
-                padding: kPadding(30.w, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      LangUtil.trans(items[i].title),
-                      style: GoogleFonts.inter(fontSize: 25.sp, color: EneoFailsColor.kWhite, fontWeight: FontWeight.w700),
+              return TweenAnimationBuilder(
+                duration: Duration(milliseconds: 1500),
+                tween: Tween<double>(begin: 0.0, end: 1.0),
+                curve: Curves.easeInOutQuad,
+                builder: (context, value, child) {
+                  return Opacity(
+                    opacity: value.clamp(0.0, 1.0),
+                    child: Container(
+                      padding: kPadding(30.w, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            LangUtil.trans(items[i].title),
+                            style: GoogleFonts.inter(fontSize: 25.sp, color: EneoFailsColor.kWhite, fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                  );
+                },
               );
             },
           ),
@@ -90,7 +99,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           //   placeholder: AssetImage("${ImageAssets.outage}${currentIndex}.jpg"),
           //   image: AssetImage("${ImageAssets.outage}${currentIndex}.jpg"),
           // ),
-          Container(
+          AnimatedContainer(
+            duration: Durations.extralong4,
             height: 400.h,
             width: kWidth(context),
             decoration: BoxDecoration(
@@ -153,14 +163,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       }
                     },
                     child: AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
-                      padding: currentIndex == items.length - 1 ? kPadding(15.w, 12.w) : kPadding(15.w, 15.w),
+                      duration: Durations.short4,
+                      width: currentIndex == items.length - 1 ? 120.w : 50.w,
+                      padding: currentIndex == items.length - 1 ? kPadding(15.w, 15.w) : kPadding(15.w, 15.w),
                       decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: radiusM()),
-                      child: currentIndex == items.length - 1
-                          ? Text(
-                              LangUtil.trans("onboarding.get_started"),
-                            )
-                          : Icon(Icons.arrow_forward, color: EneoFailsColor.kWhite, size: 20),
+                      child: AnimatedSwitcher(
+                        duration: Durations.short4,
+                        child: currentIndex == items.length - 1
+                            ? Text(
+                                softWrap: false,
+                                overflow: TextOverflow.fade,
+                                LangUtil.trans("onboarding.get_started"),
+                              )
+                            : Icon(Icons.arrow_forward, color: EneoFailsColor.kWhite, size: 20),
+                      ),
                     ),
                   )
                 ],

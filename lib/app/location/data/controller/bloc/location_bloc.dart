@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:eneo_fails/app/location/data/model/location_model/location_model.dart';
 import 'package:eneo_fails/app/location/data/repositories/location_repository.dart';
 import 'package:permission_handler/permission_handler.dart';
 

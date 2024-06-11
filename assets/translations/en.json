@@ -1,4 +1,12 @@
 {
+    "global": {
+        "good_morning": "Good Morning!",
+        "good_afternoon": "Good afternoon!",
+        "good_evening": "Good evening!",
+        "has_electricity": "You seem to have electricity!",
+        "no_electricity": "It seems you are out of electricity. \nNote that this information may not be too accurate",
+        "no_location": "No location found!"
+    },
     "onboarding": {
         "title_1": "When is the next \nEneo Power Outage?",
         "title_2": "Get Notified \nAhead of time",
@@ -17,5 +25,23 @@
         "notification_title": "Allow notification",
         "notification_description": "We need access to your notification so that we can keep you informed outages at and around you",
         "enable": "Enable"
+    },
+    "outage": {
+        "no_observation": "No observations provided!",
+        "outages": "Outages",
+        "choose_locality": "Choose outage locality",
+        "no_outages_planned": "No construction program planned in your area",
+        "some_outages": "Some outages around your city!",
+        "view_all": "View All"
+    },
+    "settings": {
+        "about_app": "About App",
+        "about_desc": "This app is a tentative solution to the problem of power outages in Cameroon. It is not affiliated with Eneo Cameroon.",
+        "share_desc": "Hi \nCheckout this app that shows eneo outages in Cameroon!",
+        "share_app": "Share App",
+        "donate": "Donate to support",
+        "donate_desc": "Donating to this project helps us build an AI that can better predict power outage in Cameroon.",
+        "disclaimer": "Disclaimer",
+        "disclaimer_desc": "The information provided here is provided by the Alert Eneo API and is not guaranteed to be accurate."
     }
 }

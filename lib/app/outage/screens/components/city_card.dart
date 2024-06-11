@@ -1,5 +1,5 @@
 import 'package:eneo_fails/app/outage/data/models/eneo_outage_model/eneo_outage_model.dart';
-import 'package:eneo_fails/shared/controllers/outage_chip.dart';
+import 'package:eneo_fails/shared/components/outage_chip.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
 import 'package:eneo_fails/shared/utils/icon_asset.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';

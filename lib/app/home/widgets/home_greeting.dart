@@ -3,6 +3,7 @@ import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/shared/components/base_shimmer.dart';
 import 'package:eneo_fails/shared/data/models/user_outage_model.dart';
 import 'package:eneo_fails/shared/utils/icon_asset.dart';
+import 'package:eneo_fails/shared/utils/language_util.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,22 +24,16 @@ class _HomeGreetingsState extends State<HomeGreetings> {
 
   EneoOutageBloc eneoOutageBloc = getIt.get<EneoOutageBloc>();
 
-  @override
-  void initState() {
-    eneoOutageBloc.add(GetOutUserEneoOutageEvent(context));
-    super.initState();
-  }
-
   String sayGreetings() {
     var now = DateTime.now();
     var hour = now.hour;
 
     if (hour < 12) {
-      return 'Good Morning!';
+      return LangUtil.trans("global.good_morning");
     } else if (hour < 18) {
-      return 'Good Afternoon!';
+      return LangUtil.trans("global.good_afternoon");
     } else {
-      return 'Good Evening!';
+      return LangUtil.trans("global.good_evening");
     }
   }
 
@@ -101,7 +96,11 @@ class _HomeGreetingsState extends State<HomeGreetings> {
                             Text(sayGreetings(), style: Theme.of(context).textTheme.displayMedium),
                             kh10Spacer(),
                             Text(
-                              userOutage?.hasElectricity == true ? "You seem to have electricity!" : "It seems you are out of electricity. \nNote that this information may not be too accurate",
+                              userOutage?.hasElectricity == true
+                                  ? LangUtil.trans("global.has_electricity")
+                                  : LangUtil.trans(
+                                      "global.no_electricity",
+                                    ),
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                             kh20Spacer(),
@@ -110,7 +109,7 @@ class _HomeGreetingsState extends State<HomeGreetings> {
                                 SvgPicture.asset(IconAssets.location_pin, color: Theme.of(context).primaryColorDark),
                                 kwSpacer(5.w),
                                 Text(
-                                  userOutage?.userLocation?.placemark != null ? "${userOutage?.userLocation?.placemark?.country} ${userOutage?.userLocation?.placemark?.locality}" : "No location found!",
+                                  userOutage?.userLocation?.placemark != null ? "${userOutage?.userLocation?.placemark?.country} ${userOutage?.userLocation?.placemark?.locality}" : LangUtil.trans("global.no_location"),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],

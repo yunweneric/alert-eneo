@@ -20,9 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // BackGroundService.registerPeriodicTask();
-    BackGroundService.initializeBackgroundService();
+    // BackGroundService.initializeBackgroundService();
     // BackGroundService.registerOneOffTask();
-    BackGroundService.registerPeriodicTask();
+    // BackGroundService.registerPeriodicTask();
     super.initState();
   }
 

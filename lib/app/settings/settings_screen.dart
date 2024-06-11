@@ -1,5 +1,6 @@
 import 'package:eneo_fails/routes/route_names.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
+import 'package:eneo_fails/shared/utils/language_util.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,19 +44,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               kh20Spacer(),
-              Text("About App", style: Theme.of(context).textTheme.displayMedium),
+              Text(LangUtil.trans("settings.about_app"), style: Theme.of(context).textTheme.displayMedium),
               kh10Spacer(),
               Text(
-                "This app is a tentative solution to the problem of power outages in Cameroon. It is not affiliated with Eneo Cameroon.",
+                LangUtil.trans("settings.about_desc"),
                 textAlign: TextAlign.center,
               ),
               kh20Spacer(),
               Card(
                 child: ListTile(
-                  onTap: () => Share.share("Hi \nCheckout this app that shows eneo outages in Cameroon!"),
+                  onTap: () => Share.share(LangUtil.trans("settings.share_desc")),
                   leading: Icon(Icons.share),
                   contentPadding: kPadding(20.w, 0.h),
-                  title: Text('Share App', style: Theme.of(context).textTheme.bodyMedium),
+                  title: Text(LangUtil.trans("settings.share_app"), style: Theme.of(context).textTheme.bodyMedium),
                 ),
               ),
               kh10Spacer(),
@@ -64,23 +65,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: () => context.push(AppRoutes.donation),
                   leading: Icon(Icons.favorite, color: EneoFailsColor.kDangerLight),
                   contentPadding: kPadding(20.w, 0.h),
-                  title: Text('Donate to support', style: Theme.of(context).textTheme.bodyMedium),
+                  title: Text(LangUtil.trans("settings.donate"), style: Theme.of(context).textTheme.bodyMedium),
                 ),
               ),
               kh10Spacer(),
               Padding(
                 padding: kph(10.w),
                 child: Text(
-                  'Donating to this project helps us build an AI that can better predict power outage in Cameroon.',
+                  LangUtil.trans("settings.donate_desc"),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
               kh20Spacer(),
               Card(
                 child: ListTile(
-                  title: Text('Disclaimer'),
+                  title: Text(LangUtil.trans("settings.disclaimer")),
                   subtitle: Text(
-                    'The information provided here is provided by the Alert Eneo API and is not guaranteed to be accurate.',
+                    LangUtil.trans("settings.disclaimer_desc"),
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),

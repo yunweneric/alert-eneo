@@ -1,4 +1,12 @@
 {
+    "global": {
+        "good_morning": "Bonjour !",
+        "good_afternoon": "Bon après-midi !",
+        "good_evening": "Bonsoir !",
+        "has_electricity": "Il semble que vous ayez de l'électricité !",
+        "no_electricity": "Il semble que vous n'ayez pas d'électricité. \nNotez que cette information peut ne pas être très précise.",
+        "no_location": "Aucun emplacement trouvé !"
+    },
     "onboarding": {
         "title_1": "Quand est la prochaine \ncoupure de courant Eneo?",
         "title_2": "Recevez une notification \nà l'avance",
@@ -17,5 +25,11 @@
         "notification_title": "Autoriser les notifications",
         "notification_description": "Nous avons besoin d'accéder à vos notifications afin de vous tenir informé des ncoupure chez vous et autour de vous.",
         "enable": "Activer"
+    },
+    "outage": {
+        "no_observation": "Aucune observation fournie !",
+        "outages": "Coupures",
+        "choose_locality": "Choisissez la localité de la coupure",
+        "no_outages_planned": "Aucun programme de construction prévu dans votre région"
     }
 }

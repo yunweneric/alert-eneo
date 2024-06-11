@@ -61,12 +61,13 @@ class _EneoFailsAppState extends State<EneoFailsApp> {
             useInheritedMediaQuery: true,
             designSize: Size(360, 690),
             builder: (context, child) {
-              ThemeData theme = context.read<EneoOutageBloc>().userOutage?.hasElectricity == true ? EneoOutageTheme.light() : EneoOutageTheme.dark();
+              final hasElectricity = context.read<EneoOutageBloc>().userOutage?.hasElectricity == true;
+              ThemeData theme = hasElectricity ? EneoOutageTheme.light() : EneoOutageTheme.dark();
               return MaterialApp.router(
                 localizationsDelegates: context.localizationDelegates,
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
-                title: 'Eneo Outage',
+                title: 'Alert Eneo',
                 routerConfig: routes,
                 debugShowCheckedModeBanner: false,
                 theme: theme,

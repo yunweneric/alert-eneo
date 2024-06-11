@@ -1,9 +1,7 @@
 import 'package:eneo_fails/app/location/data/controller/bloc/location_bloc.dart';
 import 'package:eneo_fails/app/notification/data/controller/notification/notification_bloc.dart';
-import 'package:eneo_fails/app/permissions/data/bloc/permissions_bloc.dart';
 import 'package:eneo_fails/app/permissions/screens/location_permission.dart';
 import 'package:eneo_fails/app/permissions/screens/notification_permission.dart';
-import 'package:eneo_fails/app/permissions/screens/success_permissions.dart';
 import 'package:eneo_fails/routes/route_names.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
 import 'package:flutter/material.dart';
