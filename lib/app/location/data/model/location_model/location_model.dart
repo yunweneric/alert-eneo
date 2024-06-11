@@ -1,9 +1,9 @@
 import 'package:geocoding/geocoding.dart';
-import 'package:json_annotation/json_annotation.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
-part 'location_model.g.dart';
+// part 'location_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+// @JsonSerializable(explicitToJson: true)
 class LocationModel {
   Placemark? placemark;
   double? latitude;
@@ -12,10 +12,20 @@ class LocationModel {
   LocationModel({this.placemark, this.latitude, this.longitude});
 
   factory LocationModel.fromJson(Map<String, dynamic> json) {
-    return _$LocationModelFromJson(json);
+    return LocationModel(
+      placemark: Placemark.fromMap(json['placemark']),
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+    );
   }
 
-  Map<String, dynamic> toJson() => _$LocationModelToJson(this);
+  Map<String, dynamic> toJson() {
+    return {
+      'placemark': placemark?.toJson(),
+      'latitude': latitude,
+      'longitude': longitude,
+    };
+  }
 
   LocationModel copyWith({
     Placemark? placemark,

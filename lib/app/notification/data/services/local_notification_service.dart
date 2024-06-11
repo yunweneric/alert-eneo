@@ -17,7 +17,8 @@ class LocalNotificationService {
 
   // final _notificationService = FlutterLocalNotificationsPlugin();
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   // static GlobalKey<NavigatorState>? navigatorKey;
   static BuildContext? current_context;
@@ -48,13 +49,16 @@ class LocalNotificationService {
   Future initialize() async {
     await configureLocalTimeZone();
 
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    final List<DarwinNotificationCategory> darwinNotificationCategories = <DarwinNotificationCategory>[
+    final List<DarwinNotificationCategory> darwinNotificationCategories =
+        <DarwinNotificationCategory>[
       DarwinNotificationCategory(
         darwinNotificationCategoryText,
         actions: <DarwinNotificationAction>[
-          DarwinNotificationAction.text('text_1', 'Action 1', buttonTitle: 'Send', placeholder: 'Placeholder'),
+          DarwinNotificationAction.text('text_1', 'Action 1',
+              buttonTitle: 'Send', placeholder: 'Placeholder'),
         ],
       ),
       DarwinNotificationCategory(
@@ -64,36 +68,47 @@ class LocalNotificationService {
           DarwinNotificationAction.plain(
             'id_2',
             'Action 2 (destructive)',
-            options: <DarwinNotificationActionOption>{DarwinNotificationActionOption.destructive},
+            options: <DarwinNotificationActionOption>{
+              DarwinNotificationActionOption.destructive
+            },
           ),
           DarwinNotificationAction.plain(
             navigationActionId,
             'Action 3 (foreground)',
-            options: <DarwinNotificationActionOption>{DarwinNotificationActionOption.foreground},
+            options: <DarwinNotificationActionOption>{
+              DarwinNotificationActionOption.foreground
+            },
           ),
           DarwinNotificationAction.plain(
             'id_4',
             'Action 4 (auth required)',
-            options: <DarwinNotificationActionOption>{DarwinNotificationActionOption.authenticationRequired},
+            options: <DarwinNotificationActionOption>{
+              DarwinNotificationActionOption.authenticationRequired
+            },
           ),
         ],
-        options: <DarwinNotificationCategoryOption>{DarwinNotificationCategoryOption.hiddenPreviewShowTitle},
+        options: <DarwinNotificationCategoryOption>{
+          DarwinNotificationCategoryOption.hiddenPreviewShowTitle
+        },
       )
     ];
 
     /// Note: permissions aren't requested here just to demonstrate that can be
     /// done later
-    final DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
+    final DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
       requestSoundPermission: false,
-      onDidReceiveLocalNotification: (int id, String? title, String? body, String? payload) {
+      onDidReceiveLocalNotification:
+          (int id, String? title, String? body, String? payload) {
         logI([id, title, body, payload]);
       },
       notificationCategories: darwinNotificationCategories,
     );
 
-    final InitializationSettings initializationSettings = InitializationSettings(
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsDarwin,
       macOS: initializationSettingsDarwin,
@@ -106,7 +121,8 @@ class LocalNotificationService {
     );
   }
 
-  AndroidNotificationDetails simpleAndroidNotificationDetails = AndroidNotificationDetails(
+  AndroidNotificationDetails simpleAndroidNotificationDetails =
+      AndroidNotificationDetails(
     'eneo_alert_android_notification_id',
     'eneo_alert_android_notification_name',
     importance: Importance.max,
@@ -115,7 +131,8 @@ class LocalNotificationService {
     colorized: true,
   );
 
-  DarwinNotificationDetails simpleIOSNotificationDetails = DarwinNotificationDetails(
+  DarwinNotificationDetails simpleIOSNotificationDetails =
+      DarwinNotificationDetails(
     presentAlert: true,
     presentBadge: true,
     threadIdentifier: 'eneo_alert_ios_notification_id',
@@ -123,7 +140,10 @@ class LocalNotificationService {
     interruptionLevel: InterruptionLevel.timeSensitive,
   );
 
-  Future<void> showSimpleNotification({required String title, required String description, String? payload}) async {
+  Future<void> showSimpleNotification(
+      {required String title,
+      required String description,
+      String? payload}) async {
     NotificationDetails notificationDetails = NotificationDetails(
       android: this.simpleAndroidNotificationDetails,
       iOS: simpleIOSNotificationDetails,
@@ -140,9 +160,11 @@ class LocalNotificationService {
 
   // *-----------------------------------------------------------------------------------------------------------------------
 
-  static void notificationTapBackground(NotificationResponse notificationResponse) async {
+  static void notificationTapBackground(
+      NotificationResponse notificationResponse) async {
     Map<String, dynamic> response = json.decode(notificationResponse.payload!);
-    BaseNotificationModel notification = BaseNotificationModel.fromJson(response);
+    BaseNotificationModel notification =
+        BaseNotificationModel.fromJson(response);
     String notificationType = notification.type;
 
     if (notificationType == NotificationType.EneoOutage) {

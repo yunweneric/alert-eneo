@@ -8,7 +8,8 @@ part 'permissions_state.dart';
 class PermissionsBloc extends Bloc<PermissionsEvent, PermissionsState> {
   final LocationBloc _locationBloc;
   final NotificationBloc _notificationBloc;
-  PermissionsBloc(this._notificationBloc, this._locationBloc) : super(PermissionsInitial()) {
+  PermissionsBloc(this._notificationBloc, this._locationBloc)
+      : super(PermissionsInitial()) {
     on<PermissionsEvent>((event, emit) {});
     on<AllowLocationPermissionsEvent>((event, emit) {
       _notificationBloc.add(InitializeNotificationEvent());

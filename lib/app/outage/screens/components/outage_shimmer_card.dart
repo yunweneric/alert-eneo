@@ -32,7 +32,8 @@ class _OutageShimmerCardState extends State<OutageShimmerCard> {
                 children: [
                   shimmerItem(8.h, 80.w, 5.r, context),
                   kwSpacer(20.w),
-                  Expanded(child: shimmerItem(8.h, kWidth(context), 5.r, context)),
+                  Expanded(
+                      child: shimmerItem(8.h, kWidth(context), 5.r, context)),
                 ],
               ),
               khSpacer(10.h),
@@ -40,7 +41,8 @@ class _OutageShimmerCardState extends State<OutageShimmerCard> {
                 children: [
                   shimmerItem(8.h, 80.w, 5.r, context),
                   kwSpacer(20.w),
-                  Expanded(child: shimmerItem(8.h, kWidth(context), 5.r, context)),
+                  Expanded(
+                      child: shimmerItem(8.h, kWidth(context), 5.r, context)),
                 ],
               ),
               khSpacer(20.h),

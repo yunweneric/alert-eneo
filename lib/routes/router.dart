@@ -11,7 +11,8 @@ CustomTransitionPage transitionEffect({required state, required Widget child}) {
   return CustomTransitionPage<void>(
     key: state.pageKey,
     child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+        FadeTransition(opacity: animation, child: child),
   );
 }
 
@@ -21,10 +22,25 @@ CustomTransitionPage transitionEffect({required state, required Widget child}) {
 final routes = GoRouter(
   routes: [
     // ** Splash screen routes
-    GoRoute(path: AppRoutes.splash, pageBuilder: (context, state) => transitionEffect(state: state, child: SplashScreen())),
-    GoRoute(path: AppRoutes.home, pageBuilder: (context, state) => transitionEffect(state: state, child: HomeLayout())),
-    GoRoute(path: AppRoutes.start, pageBuilder: (context, state) => transitionEffect(state: state, child: OnboardingScreen())),
-    GoRoute(path: AppRoutes.donation, pageBuilder: (context, state) => transitionEffect(state: state, child: DonationScreen())),
-    GoRoute(path: AppRoutes.permissions, pageBuilder: (context, state) => transitionEffect(state: state, child: AppPermissionScreen())),
+    GoRoute(
+        path: AppRoutes.splash,
+        pageBuilder: (context, state) =>
+            transitionEffect(state: state, child: SplashScreen())),
+    GoRoute(
+        path: AppRoutes.home,
+        pageBuilder: (context, state) =>
+            transitionEffect(state: state, child: HomeLayout())),
+    GoRoute(
+        path: AppRoutes.start,
+        pageBuilder: (context, state) =>
+            transitionEffect(state: state, child: OnboardingScreen())),
+    GoRoute(
+        path: AppRoutes.donation,
+        pageBuilder: (context, state) =>
+            transitionEffect(state: state, child: DonationScreen())),
+    GoRoute(
+        path: AppRoutes.permissions,
+        pageBuilder: (context, state) =>
+            transitionEffect(state: state, child: AppPermissionScreen())),
   ],
 );

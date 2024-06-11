@@ -15,16 +15,22 @@ class NoOutageCard extends StatelessWidget {
       margin: kAppPadding(),
       width: kWidth(context),
       height: kHeight(context) / 2.2,
-      decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: radiusM()),
+      decoration: BoxDecoration(
+          color: Theme.of(context).cardColor, borderRadius: radiusM()),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(ImageAssets.no_data, width: 200, color: Theme.of(context).primaryColor.withOpacity(0.4)),
+          SvgPicture.asset(ImageAssets.no_data,
+              width: 200,
+              color: Theme.of(context).primaryColor.withOpacity(0.4)),
           kh10Spacer(),
           Text(
             LangUtil.trans("outage.no_outages_planned"),
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 13.sp),
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(fontSize: 13.sp),
           ),
         ],
       ),

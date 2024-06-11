@@ -32,7 +32,8 @@ class _OutageListPageState extends State<OutageListPage> {
   }
 
   scrollTo(double offset) {
-    controller?.animateTo(offset, duration: Duration(milliseconds: 300), curve: Curves.linear);
+    controller?.animateTo(offset,
+        duration: Duration(milliseconds: 300), curve: Curves.linear);
   }
 
   @override
@@ -72,27 +73,34 @@ class _OutageListPageState extends State<OutageListPage> {
             BlocConsumer<EneoOutageBloc, EneoOutageState>(
               listener: (context, state) {},
               builder: (context, state) {
-                if (state is EneoOutageFetchLoaded || state is EneoOutageSearchLoaded) {
+                if (state is EneoOutageFetchLoaded ||
+                    state is EneoOutageSearchLoaded) {
                   loadingOutages = false;
                 }
-                if (state is EneoOutageFetchError || state is EneoOutageSearchError) {
+                if (state is EneoOutageFetchError ||
+                    state is EneoOutageSearchError) {
                   loadingOutages = false;
                 }
-                if (state is EneoOutageFetchLoading || state is EneoOutageSearchLoading) {
+                if (state is EneoOutageFetchLoading ||
+                    state is EneoOutageSearchLoading) {
                   loadingOutages = true;
                 }
-                if (context.read<EneoOutageBloc>().searchOutages.length == 0 && loadingOutages == false)
+                if (context.read<EneoOutageBloc>().searchOutages.length == 0 &&
+                    loadingOutages == false)
                   return SliverToBoxAdapter(
                     child: NoOutageCard(),
                   );
                 return Builder(
                   builder: (context) {
-                    List<EneoOutageModel> items = context.read<EneoOutageBloc>().searchOutages;
+                    List<EneoOutageModel> items =
+                        context.read<EneoOutageBloc>().searchOutages;
 
                     return SliverToBoxAdapter(
                       child: AnimatedSwitcher(
                         duration: Duration(seconds: 4),
-                        child: loadingOutages ? OutageShimmerCard() : OutageList(items: items),
+                        child: loadingOutages
+                            ? OutageShimmerCard()
+                            : OutageList(items: items),
                       ),
                     );
                   },

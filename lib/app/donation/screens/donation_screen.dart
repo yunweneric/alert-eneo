@@ -1,9 +1,11 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
-import 'package:eneo_fails/core/config.dart';
+import 'package:eneo_fails/app/payment/data/model/initialize_payment_request_model/initialize_payment_request_model.dart';
+import 'package:eneo_fails/app/payment/logic/payment/payment_bloc.dart';
+import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/shared/components/bottom_sheets.dart';
 import 'package:eneo_fails/shared/utils/colors.dart';
+import 'package:eneo_fails/shared/utils/language_util.dart';
 import 'package:eneo_fails/shared/utils/sizing.dart';
-import 'package:fapshi_pay/fapshi_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +22,7 @@ class _DonationScreenState extends State<DonationScreen> {
   String readableAmount = "XAF0";
   TextEditingController amount_controller = TextEditingController();
 
+  final paymentBloc = getIt.get<PaymentBloc>();
   loadingUI(String text) {
     AppSheet.simpleModal(
       context: context,
@@ -67,9 +70,9 @@ class _DonationScreenState extends State<DonationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               kh20Spacer(),
-              Text("Support Us!", style: Theme.of(context).textTheme.displayMedium),
+              Text(LangUtil.trans("donate.support_us"), style: Theme.of(context).textTheme.displayMedium),
               kh10Spacer(),
-              Text("Supporting us, helps us build a better AI for predicting electricity outages in Cameroon"),
+              Text(LangUtil.trans("donate.support_desc")),
               kh20Spacer(),
               kh20Spacer(),
               kh20Spacer(),
@@ -88,8 +91,8 @@ class _DonationScreenState extends State<DonationScreen> {
                 keyboardType: TextInputType.number,
                 style: Theme.of(context).textTheme.bodyMedium,
                 decoration: InputDecoration(
-                  hintText: "Enter amount",
-                  prefixIcon: Icon(Icons.attach_money_rounded),
+                  hintText: LangUtil.trans("donate.enter_amount"),
+                  prefixIcon: Icon(Icons.credit_card),
                   hintStyle: Theme.of(context).textTheme.labelMedium,
                 ),
                 onChanged: (String val) {
@@ -103,47 +106,36 @@ class _DonationScreenState extends State<DonationScreen> {
                 },
               ),
               kh20Spacer(),
-              FapshiPay(
-                amount: totalAmount,
-                phone: "670912935",
-                env: AppEnv.dev,
-                sandboxApiUser: AppConfig.devApiUser,
-                sandboxApiKey: AppConfig.devApiKey,
-                liveApiUser: AppConfig.apiUser,
-                liveApiKey: AppConfig.apiKey,
-                title: "Donate Now",
-                icon: Icon(Icons.payment, color: EneoFailsColor.kWhite),
-                textStyle: TextStyle(color: EneoFailsColor.kWhite),
-                initialLoadingUI: () => loadingUI("Loading ..."),
-                checkPaymentLoadingUI: () {
-                  context.pop();
-                  loadingUI("Checking donation status!");
+              ElevatedButton(
+                onPressed: () {
+                  if (totalAmount < 0) return;
+                  final model = InitializePaymentRequestModel(
+                    totalAmount: totalAmount,
+                    currency: 'XAF',
+                    transactionId: "transactionId",
+                    returnUrl: 'returnUrl',
+                    notifyUrl: 'notifyUrl',
+                    paymentCountry: 'CM',
+                  );
+                  paymentBloc.add(PaymentInitializeEvent(model: model));
                 },
-                errorUI: (message) {
-                  context.pop();
-                  errorUI(message);
-                },
-                successUI: (paymentResponse) {
-                  context.pop();
-                  successUI("Thank you for donating ${paymentResponse.amount} to our project!");
-                },
-                buttonStyle: ElevatedButton.styleFrom(
-                  padding: kPadding(10.w, 15.h),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size.fromWidth(kWidth(context)),
+                  padding: kPadding(10.w, 12.h),
                   backgroundColor: Theme.of(context).primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: radiusM(),
+                  ),
                 ),
-                onCheckPaymentSuccess: ((paymentResponse) {
-                  setState(() {
-                    readableAmount = "0XAF";
-                    totalAmount = 0;
-                    amount_controller.clear();
-                  });
-                }),
+                child: Text(
+                  LangUtil.trans("donate.donate"),
+                  style: TextStyle(color: EneoFailsColor.kWhite),
+                ),
               ),
               kh20Spacer(),
               Center(
                 child: Text(
-                  "Thank you for donating $readableAmount to our project!",
+                  LangUtil.trans("donate.thanks", args: {"amount": readableAmount}),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),

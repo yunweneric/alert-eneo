@@ -2,11 +2,9 @@ import 'package:eneo_fails/core/application.dart';
 import 'package:eneo_fails/core/config.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/shared/utils/image_asset.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:workmanager/workmanager.dart';
 // import 'package:workmanager/workmanager.dart';
 
 Future bootstrap(Function backGroundTask) async {
@@ -31,7 +29,7 @@ Future bootstrap(Function backGroundTask) async {
   // getIt.get<LocalNotificationService>().initialize();
 
   // BackGroundService.initializeService();
-  await Workmanager().initialize(backGroundTask, isInDebugMode: kDebugMode);
+  // await Workmanager().initialize(backGroundTask, isInDebugMode: kDebugMode);
 
   runApp(
     EasyLocalization(

@@ -28,7 +28,9 @@ class AppButtons {
       width: width == null ? kWidth(context) : width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: borderRadius ?? radiusSm(), side: borderSide == null ? BorderSide.none : borderSide),
+          shape: RoundedRectangleBorder(
+              borderRadius: borderRadius ?? radiusSm(),
+              side: borderSide == null ? BorderSide.none : borderSide),
           padding: padding ?? EdgeInsets.symmetric(vertical: 15.h),
           backgroundColor: color ?? Theme.of(context).primaryColor,
           elevation: elevation == null ? 0 : elevation,
@@ -39,7 +41,9 @@ class AppButtons {
             : icon == null
                 ? Text(
                     text,
-                    style: TextStyle(fontSize: fontSize ?? 14.sp, color: textColor ?? EneoFailsColor.kWhite),
+                    style: TextStyle(
+                        fontSize: fontSize ?? 14.sp,
+                        color: textColor ?? EneoFailsColor.kWhite),
                   ).tr()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +51,10 @@ class AppButtons {
                         ? [
                             Text(
                               text,
-                              style: TextStyle(fontSize: fontSize ?? 12.w, color: textColor, fontWeight: FontWeight.w700),
+                              style: TextStyle(
+                                  fontSize: fontSize ?? 12.w,
+                                  color: textColor,
+                                  fontWeight: FontWeight.w700),
                             ).tr(),
                             if (text != "") SizedBox(width: 5.w),
                             icon,
@@ -57,7 +64,10 @@ class AppButtons {
                             if (text != "") SizedBox(width: 8.w),
                             Text(
                               text,
-                              style: TextStyle(fontSize: fontSize ?? 12.w, color: textColor, fontWeight: FontWeight.w700),
+                              style: TextStyle(
+                                  fontSize: fontSize ?? 12.w,
+                                  color: textColor,
+                                  fontWeight: FontWeight.w700),
                             ).tr(),
                           ],
                   ),

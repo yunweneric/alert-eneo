@@ -25,19 +25,25 @@ class OutageCard extends StatelessWidget {
             title: Row(
               children: [
                 Container(
-                  decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: radiusVal(5.r)),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: radiusVal(5.r)),
                   padding: kPadding(10.w, 10.w),
-                  child: SvgPicture.asset(IconAssets.outage_pin, color: Theme.of(context).primaryColorDark),
+                  child: SvgPicture.asset(IconAssets.outage_pin,
+                      color: Theme.of(context).primaryColorDark),
                 ),
                 kwSpacer(10.w),
-                Expanded(child: Text("${outage.region} ${outage.ville} - ${outage.quartier}")),
+                Expanded(
+                    child: Text(
+                        "${outage.region} ${outage.ville} - ${outage.quartier}")),
               ],
             ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 kh10Spacer(),
-                Text(outage.observations ?? LangUtil.trans("outage.no_observation")),
+                Text(outage.observations ??
+                    LangUtil.trans("outage.no_observation")),
                 kh10Spacer(),
                 Row(
                   children: [
@@ -51,7 +57,8 @@ class OutageCard extends StatelessWidget {
                     outageChip(
                       context: context,
                       icon: IconAssets.clock,
-                      title: "${outage.progHeureDebut ?? ""} - ${outage.progHeureFin ?? ""}",
+                      title:
+                          "${outage.progHeureDebut ?? ""} - ${outage.progHeureFin ?? ""}",
                     ),
                   ],
                 ),

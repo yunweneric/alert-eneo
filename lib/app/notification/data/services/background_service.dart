@@ -55,11 +55,13 @@ class BackGroundService {
   }
 
   static void registerOneOffTask() {
-    Workmanager().registerOneOffTask(BackGroundTask.OneOffTask, BackGroundTask.OneOffTask);
+    Workmanager().registerOneOffTask(
+        BackGroundTask.OneOffTask, BackGroundTask.OneOffTask);
   }
 
   static Future<FlutterBackgroundService> initializeBackgroundService() async {
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
 
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'outage_background', // id
@@ -67,7 +69,10 @@ class BackGroundService {
       description: 'This channel broadcast eneo outages', // description
       importance: Importance.high, // importance must be at low or higher level
     );
-    await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
 
     final service = FlutterBackgroundService();
 

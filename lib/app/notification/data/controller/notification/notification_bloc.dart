@@ -13,7 +13,8 @@ part 'notification_state.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   final LocalNotificationRepository _localNotificationRepository;
-  NotificationBloc(this._localNotificationRepository) : super(NotificationInitial()) {
+  NotificationBloc(this._localNotificationRepository)
+      : super(NotificationInitial()) {
     on<InitializeNotificationEvent>((event, emit) async {
       bool hasPermission = await Permission.notification.isGranted;
       if (!hasPermission) await Permission.notification.request();
@@ -28,8 +29,12 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       final Map<String, dynamic> localMap = deviceLocale == "en" ? en : fr;
       BaseNotificationModel model = BaseNotificationModel(
         data: event.outage.toJson(),
-        title: event.outage.hasElectricity == true ? localMap['notifications']['outage_title_available'] : localMap['notifications']['outage_title_failure'],
-        description: event.outage.hasElectricity == true ? localMap['notifications']['outage_in_description'] : localMap['notifications']['outage_out_description'],
+        title: event.outage.hasElectricity == true
+            ? localMap['notifications']['outage_title_available']
+            : localMap['notifications']['outage_title_failure'],
+        description: event.outage.hasElectricity == true
+            ? localMap['notifications']['outage_in_description']
+            : localMap['notifications']['outage_out_description'],
         type: NotificationType.EneoOutage,
       );
       _localNotificationRepository.showNotification(model);

@@ -7,7 +7,8 @@ class SuccessPermissionScreen extends StatefulWidget {
   const SuccessPermissionScreen({super.key});
 
   @override
-  State<SuccessPermissionScreen> createState() => _SuccessPermissionScreenState();
+  State<SuccessPermissionScreen> createState() =>
+      _SuccessPermissionScreenState();
 }
 
 class _SuccessPermissionScreenState extends State<SuccessPermissionScreen> {

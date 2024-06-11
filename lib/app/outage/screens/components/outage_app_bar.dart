@@ -15,7 +15,11 @@ class OutageAppBar extends StatefulWidget {
   final double top;
   final FocusNode focusNode;
   final VoidCallback onTapSearch;
-  const OutageAppBar({super.key, required this.top, required this.focusNode, required this.onTapSearch});
+  const OutageAppBar(
+      {super.key,
+      required this.top,
+      required this.focusNode,
+      required this.onTapSearch});
 
   @override
   State<OutageAppBar> createState() => _OutageAppBarState();
@@ -37,7 +41,8 @@ class _OutageAppBarState extends State<OutageAppBar> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(LangUtil.trans("outage.outages"), style: Theme.of(context).textTheme.displayMedium),
+                      Text(LangUtil.trans("outage.outages"),
+                          style: Theme.of(context).textTheme.displayMedium),
                       GestureDetector(
                         onTap: () {
                           widget.onTapSearch();
@@ -50,33 +55,47 @@ class _OutageAppBarState extends State<OutageAppBar> {
                 ),
               )
             : Builder(builder: (context) {
-                EneoOutageRegion? selectedRegion = context.read<EneoOutageBloc>().selectedRegion;
+                EneoOutageRegion? selectedRegion =
+                    context.read<EneoOutageBloc>().selectedRegion;
                 return GestureDetector(
                   onTap: () => AppSheet.showRegionSheet(
                     context: context,
-                    outageRegions: context.read<EneoOutageBloc>().eneoOutageRegion,
+                    outageRegions:
+                        context.read<EneoOutageBloc>().eneoOutageRegion,
                     selectedOutageRegions: selectedRegion,
-                    onChanged: (region) => eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: region)),
+                    onChanged: (region) => eneoOutageBloc
+                        .add(SearchEneoOutageByRegionEvent(region: region)),
                   ),
                   child: Container(
                     padding: kPadding(10.w, 8.h),
                     margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: radiusM()),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: radiusM()),
                     child: Row(
                       children: [
                         Expanded(
                           child: selectedRegion == null
                               ? Text(
                                   LangUtil.trans("outage.choose_locality"),
-                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10.sp),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(fontSize: 10.sp),
                                 )
                               : Row(
                                   children: [
-                                    SvgPicture.asset(IconAssets.location_pin, color: Theme.of(context).primaryColorDark, width: 20),
+                                    SvgPicture.asset(IconAssets.location_pin,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                        width: 20),
                                     kwSpacer(8.w),
                                     Text(
                                       selectedRegion.name,
-                                      style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10.sp),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(fontSize: 10.sp),
                                     ),
                                   ],
                                 ),

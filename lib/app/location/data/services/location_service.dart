@@ -1,4 +1,3 @@
-
 import 'package:eneo_fails/app/location/data/model/location_model/location_model.dart';
 import 'package:eneo_fails/shared/components/bottom_sheets.dart';
 import 'package:eneo_fails/shared/data/services/base_service.dart';
@@ -12,12 +11,17 @@ import 'package:url_launcher/url_launcher.dart';
 class LocationService extends BaseService {
   LocationService({required super.dio});
 
-  Future<Map<String, dynamic>?> determineCurrentLocation({BuildContext? context}) async {
+  Future<Map<String, dynamic>?> determineCurrentLocation(
+      {BuildContext? context}) async {
     try {
       // Test if location services are enabled.
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        if (context != null) AppSheet.showErrorSheet(context: context, desc: "Please enable location services on your device", title: "Enable LocationModel");
+        if (context != null)
+          AppSheet.showErrorSheet(
+              context: context,
+              desc: "Please enable location services on your device",
+              title: "Enable LocationModel");
         return null;
       }
 
@@ -25,7 +29,11 @@ class LocationService extends BaseService {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          if (context != null) AppSheet.showErrorSheet(context: context, desc: "Please enable location services on your device", title: "Enable LocationModel");
+          if (context != null)
+            AppSheet.showErrorSheet(
+                context: context,
+                desc: "Please enable location services on your device",
+                title: "Enable LocationModel");
           permission = await Geolocator.requestPermission();
         }
         return null;
@@ -35,7 +43,8 @@ class LocationService extends BaseService {
         if (context != null)
           AppSheet.showErrorSheet(
             context: context,
-            desc: "Your location permissions have been denied. Please enable them now!",
+            desc:
+                "Your location permissions have been denied. Please enable them now!",
             title: "Enable LocationModel",
             onOkay: () => Geolocator.openAppSettings(),
           );
@@ -53,7 +62,8 @@ class LocationService extends BaseService {
 
       // logI(position.toJson());
 
-      Placemark? placemark = await getStreetNameFromCoordinates(position.latitude, position.longitude);
+      Placemark? placemark = await getStreetNameFromCoordinates(
+          position.latitude, position.longitude);
 
       if (placemark == null) return null;
 
@@ -68,7 +78,10 @@ class LocationService extends BaseService {
     }
   }
 
-  static double getGeolocatorDistance({required context, required LocationModel initialLocation, required LocationModel endLocation}) {
+  static double getGeolocatorDistance(
+      {required context,
+      required LocationModel initialLocation,
+      required LocationModel endLocation}) {
     var distance = Geolocator.distanceBetween(
       initialLocation.latitude!,
       initialLocation.longitude!,
@@ -78,9 +91,11 @@ class LocationService extends BaseService {
     return distance;
   }
 
-  Future<String?> getCountryFromCoordinates(double latitude, double longitude) async {
+  Future<String?> getCountryFromCoordinates(
+      double latitude, double longitude) async {
     try {
-      List<Placemark> place = await placemarkFromCoordinates(latitude, longitude);
+      List<Placemark> place =
+          await placemarkFromCoordinates(latitude, longitude);
       if (place.isNotEmpty) {
         return place[0].name;
       }
@@ -92,9 +107,11 @@ class LocationService extends BaseService {
   }
 
   // Future<String?> getStreetNameFromCoordinates(double latitude, double longitude) async {
-  Future<Placemark?> getStreetNameFromCoordinates(double latitude, double longitude) async {
+  Future<Placemark?> getStreetNameFromCoordinates(
+      double latitude, double longitude) async {
     try {
-      List<Placemark> place = await placemarkFromCoordinates(latitude, longitude);
+      List<Placemark> place =
+          await placemarkFromCoordinates(latitude, longitude);
       if (place.isNotEmpty) return place[0];
     } catch (e) {
       return null;
@@ -102,7 +119,8 @@ class LocationService extends BaseService {
     return null;
   }
 
-  Future<void> openMapsAndPlotCourse(BuildContext context, String? location) async {
+  Future<void> openMapsAndPlotCourse(
+      BuildContext context, String? location) async {
     try {
       if (location == null) {
         AppSheet.showErrorSheet(
@@ -116,14 +134,16 @@ class LocationService extends BaseService {
           AppSheet.showErrorSheet(
             context: context,
             title: "Open location",
-            desc: "There was an error opening the location. Please ensure you have google maps app installed",
+            desc:
+                "There was an error opening the location. Please ensure you have google maps app installed",
           );
         }
       }
     } catch (e) {}
   }
 
-  Future<void> openCoordinates(BuildContext context, LocationModel location) async {
+  Future<void> openCoordinates(
+      BuildContext context, LocationModel location) async {
     try {
       bool launched = await MapsLauncher.launchCoordinates(
         location.latitude!,
@@ -134,7 +154,8 @@ class LocationService extends BaseService {
         AppSheet.showErrorSheet(
           context: context,
           title: "Open location",
-          desc: "There was an error opening the location. Please ensure you have google maps app installed",
+          desc:
+              "There was an error opening the location. Please ensure you have google maps app installed",
         );
       }
     } catch (e) {}
@@ -145,7 +166,8 @@ class LocationService extends BaseService {
     required LocationModel LocationModel,
     required LocationModel stopLocation,
   }) async {
-    final raw_url = 'https://www.google.com/maps/dir/?api=1&origin=${LocationModel.latitude},${LocationModel.longitude}&destination=${stopLocation.latitude},${stopLocation.longitude}&travelmode=w';
+    final raw_url =
+        'https://www.google.com/maps/dir/?api=1&origin=${LocationModel.latitude},${LocationModel.longitude}&destination=${stopLocation.latitude},${stopLocation.longitude}&travelmode=w';
     Uri url = Uri.parse(raw_url);
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -153,7 +175,8 @@ class LocationService extends BaseService {
       AppSheet.showErrorSheet(
         context: context,
         title: "Open location",
-        desc: "There was an error opening the location. Please ensure you have google maps app installed",
+        desc:
+            "There was an error opening the location. Please ensure you have google maps app installed",
       );
     }
   }

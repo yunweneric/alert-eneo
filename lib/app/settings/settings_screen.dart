@@ -44,7 +44,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               kh20Spacer(),
-              Text(LangUtil.trans("settings.about_app"), style: Theme.of(context).textTheme.displayMedium),
+              Text(LangUtil.trans("settings.about_app"),
+                  style: Theme.of(context).textTheme.displayMedium),
               kh10Spacer(),
               Text(
                 LangUtil.trans("settings.about_desc"),
@@ -53,19 +54,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
               kh20Spacer(),
               Card(
                 child: ListTile(
-                  onTap: () => Share.share(LangUtil.trans("settings.share_desc")),
+                  onTap: () =>
+                      Share.share(LangUtil.trans("settings.share_desc")),
                   leading: Icon(Icons.share),
                   contentPadding: kPadding(20.w, 0.h),
-                  title: Text(LangUtil.trans("settings.share_app"), style: Theme.of(context).textTheme.bodyMedium),
+                  title: Text(LangUtil.trans("settings.share_app"),
+                      style: Theme.of(context).textTheme.bodyMedium),
                 ),
               ),
               kh10Spacer(),
               Card(
                 child: ListTile(
                   onTap: () => context.push(AppRoutes.donation),
-                  leading: Icon(Icons.favorite, color: EneoFailsColor.kDangerLight),
+                  leading:
+                      Icon(Icons.favorite, color: EneoFailsColor.kDangerLight),
                   contentPadding: kPadding(20.w, 0.h),
-                  title: Text(LangUtil.trans("settings.donate"), style: Theme.of(context).textTheme.bodyMedium),
+                  title: Text(LangUtil.trans("settings.donate"),
+                      style: Theme.of(context).textTheme.bodyMedium),
                 ),
               ),
               kh10Spacer(),
@@ -88,8 +93,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               // Spacer(),
               kh20Spacer(),
-              Text("©${year} Eneo Alert", style: Theme.of(context).textTheme.bodySmall!.copyWith(fontStyle: FontStyle.italic)),
-              if (packageInfo != null) Text(packageInfo!.version, style: Theme.of(context).textTheme.bodySmall!.copyWith(fontStyle: FontStyle.italic)),
+              Text("©${year} Eneo Alert",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontStyle: FontStyle.italic)),
+              if (packageInfo != null)
+                Text(packageInfo!.version,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontStyle: FontStyle.italic)),
             ],
           ),
         ),

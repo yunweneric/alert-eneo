@@ -62,7 +62,8 @@ class _HomeGreetingsState extends State<HomeGreetings> {
                   ),
                   child: Shimmer.fromColors(
                     highlightColor: Theme.of(context).cardColor,
-                    baseColor: Theme.of(context).primaryColorDark.withOpacity(0.1),
+                    baseColor:
+                        Theme.of(context).primaryColorDark.withOpacity(0.1),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -93,7 +94,9 @@ class _HomeGreetingsState extends State<HomeGreetings> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(sayGreetings(), style: Theme.of(context).textTheme.displayMedium),
+                            Text(sayGreetings(),
+                                style:
+                                    Theme.of(context).textTheme.displayMedium),
                             kh10Spacer(),
                             Text(
                               userOutage?.hasElectricity == true
@@ -106,10 +109,13 @@ class _HomeGreetingsState extends State<HomeGreetings> {
                             kh20Spacer(),
                             Row(
                               children: [
-                                SvgPicture.asset(IconAssets.location_pin, color: Theme.of(context).primaryColorDark),
+                                SvgPicture.asset(IconAssets.location_pin,
+                                    color: Theme.of(context).primaryColorDark),
                                 kwSpacer(5.w),
                                 Text(
-                                  userOutage?.userLocation?.placemark != null ? "${userOutage?.userLocation?.placemark?.country} ${userOutage?.userLocation?.placemark?.locality}" : LangUtil.trans("global.no_location"),
+                                  userOutage?.userLocation?.placemark != null
+                                      ? "${userOutage?.userLocation?.placemark?.country} ${userOutage?.userLocation?.placemark?.locality}"
+                                      : LangUtil.trans("global.no_location"),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],
@@ -121,9 +127,16 @@ class _HomeGreetingsState extends State<HomeGreetings> {
                         top: 0,
                         right: 0,
                         child: Icon(
-                          context.read<EneoOutageBloc>().userOutage?.hasElectricity == true ? Icons.check_circle : Icons.cancel,
+                          context
+                                      .read<EneoOutageBloc>()
+                                      .userOutage
+                                      ?.hasElectricity ==
+                                  true
+                              ? Icons.check_circle
+                              : Icons.cancel,
                           size: 200.r,
-                          color: Theme.of(context).primaryColor.withOpacity(0.1),
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.1),
                         ),
                       ),
                     ],

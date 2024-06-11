@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 EdgeInsetsGeometry kAppPadding() => EdgeInsets.symmetric(horizontal: 20.w);
 EdgeInsetsGeometry kph(double size) => EdgeInsets.symmetric(horizontal: size);
 
-EdgeInsetsGeometry kPadding(double width, double height) => EdgeInsets.symmetric(horizontal: width, vertical: height);
+EdgeInsetsGeometry kPadding(double width, double height) =>
+    EdgeInsets.symmetric(horizontal: width, vertical: height);
 
 EdgeInsetsGeometry kpv(double size) => EdgeInsets.symmetric(vertical: size);
 
@@ -26,7 +27,12 @@ radiusL() => BorderRadius.circular(20.r);
 radiusXl() => BorderRadius.circular(25.r);
 radiusXxl() => BorderRadius.circular(30.r);
 
-InputDecoration authInputDecoration({required String hintText, required BuildContext context, label, prefixIcon, suffix}) {
+InputDecoration authInputDecoration(
+    {required String hintText,
+    required BuildContext context,
+    label,
+    prefixIcon,
+    suffix}) {
   return InputDecoration(
     hintText: hintText,
     labelText: label ?? hintText,

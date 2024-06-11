@@ -8,7 +8,8 @@ class LocationRepository {
   LocationRepository(this._locationService);
 
   Future<LocationModel?> getUserLocation({BuildContext? context}) async {
-    Map<String, dynamic>? location = await _locationService.determineCurrentLocation(context: context);
+    Map<String, dynamic>? location =
+        await _locationService.determineCurrentLocation(context: context);
     if (location == null) throw Exception("We could not find your location!");
     return LocationModel.fromJson(location);
   }

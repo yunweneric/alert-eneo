@@ -38,16 +38,22 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
   EneoOutageRegion? selectedRegion;
   EneoOutageRegion? defaultRegion;
 
-  EneoOutageBloc(this._outageRepository, this._locationRepository, this._notificationBloc) : super(EneoOutageInitial()) {
+  EneoOutageBloc(
+      this._outageRepository, this._locationRepository, this._notificationBloc)
+      : super(EneoOutageInitial()) {
     on<EneoOutageEvent>((event, emit) {});
 
     on<SetEneoOutageRegionEvent>((event, emit) async {
-      LocationModel? location = await _locationRepository.getUserLocation(context: event.context);
+      LocationModel? location =
+          await _locationRepository.getUserLocation(context: event.context);
       if (location == null) {
         emit(EneoOutageGetUserError(message: "Location not found!"));
         return;
       }
-      List<EneoOutageRegion> userRegion = eneoOutageRegion.where((element) => element.name.contains(location.placemark!.locality!)).toList();
+      List<EneoOutageRegion> userRegion = eneoOutageRegion
+          .where(
+              (element) => element.name.contains(location.placemark!.locality!))
+          .toList();
 
       if (userRegion.length > 0) {
         add(GetOutEneoOutageEvent(regionId: userRegion.first.id));
@@ -57,7 +63,8 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
     on<GetOutEneoOutageEvent>((event, emit) async {
       emit(EneoOutageFetchLoading());
       try {
-        List<EneoOutageModel> new_outages = await _outageRepository.getOutages(data: {"region": event.regionId});
+        List<EneoOutageModel> new_outages = await _outageRepository
+            .getOutages(data: {"region": event.regionId});
         outages = new_outages;
         searchOutages = new_outages;
         emit(EneoOutageFetchLoaded(outages: new_outages));
@@ -68,11 +75,13 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
     on<SearchEneoOutageByCityEvent>((event, emit) async {
       emit(EneoOutageSearchLoading());
       try {
-        List<EneoOutageModel> new_outages = await _outageRepository.getOutages(data: {"localite": event.localite});
+        List<EneoOutageModel> new_outages = await _outageRepository
+            .getOutages(data: {"localite": event.localite});
 
         List<EneoOutageModel> filtered = new_outages
             .where(
-              (element) => element.ville?.toLowerCase() == event.localite?.toLowerCase(),
+              (element) =>
+                  element.ville?.toLowerCase() == event.localite?.toLowerCase(),
             )
             .toList();
         searchOutages = filtered;
@@ -86,7 +95,8 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
       emit(EneoOutageSearchLoading());
       try {
         selectedRegion = event.region;
-        List<EneoOutageModel> new_outages = await _outageRepository.getOutages(data: {"region": event.region.id});
+        List<EneoOutageModel> new_outages = await _outageRepository
+            .getOutages(data: {"region": event.region.id});
         searchOutages = new_outages;
         emit(EneoOutageSearchLoaded(outages: new_outages));
       } catch (e) {
@@ -96,14 +106,18 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
     on<GetOutUserEneoOutageEvent>((event, emit) async {
       emit(EneoOutageGetUserLoading());
       try {
-        LocationModel? location = await _locationRepository.getUserLocation(context: event.context);
+        LocationModel? location =
+            await _locationRepository.getUserLocation(context: event.context);
         if (location == null) {
           emit(EneoOutageGetUserError(message: "Location not found!"));
           return;
         }
         await LocalStorageService.saveLocation(location);
         // Place
-        List<EneoOutageRegion> userRegion = eneoOutageRegion.where((element) => element.name.contains(location.placemark!.locality!)).toList();
+        List<EneoOutageRegion> userRegion = eneoOutageRegion
+            .where((element) =>
+                element.name.contains(location.placemark!.locality!))
+            .toList();
 
         if (userRegion.length > 0) {
           add(GetOutEneoOutageEvent(regionId: userRegion.first.id));
@@ -120,7 +134,8 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
         emit(CheckBackGroundUserEneoOutageLoading());
         userOutage = await filterCityOutage();
         emit(CheckBackGroundUserEneoOutageSuccuss());
-        _notificationBloc.add(ShowUserBackgroundOutageNotificationEvent(userOutage!));
+        _notificationBloc
+            .add(ShowUserBackgroundOutageNotificationEvent(userOutage!));
       } catch (e) {
         emit(CheckBackGroundUserEneoOutageError());
         logError(e);
@@ -131,16 +146,20 @@ class EneoOutageBloc extends Bloc<EneoOutageEvent, EneoOutageState> {
   Future<UserOutage?> filterCityOutage() async {
     LocationModel? location = await _locationRepository.getUserLocation();
     if (location == null) return null;
-    List<EneoOutageModel> new_outages = await _outageRepository.getOutages(data: {"localite": location.placemark!.locality!});
+    List<EneoOutageModel> new_outages = await _outageRepository
+        .getOutages(data: {"localite": location.placemark!.locality!});
 
     List<EneoOutageModel> filtered = new_outages
         .where(
-          (element) => element.ville?.toLowerCase() == location.placemark!.locality!.toLowerCase(),
+          (element) =>
+              element.ville?.toLowerCase() ==
+              location.placemark!.locality!.toLowerCase(),
         )
         .toList();
 
     bool hasElectricity = filtered.length == 0;
-    userOutage = UserOutage(hasElectricity: hasElectricity, userLocation: location);
+    userOutage =
+        UserOutage(hasElectricity: hasElectricity, userLocation: location);
     return userOutage;
   }
 }

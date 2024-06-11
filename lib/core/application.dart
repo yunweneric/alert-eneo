@@ -5,6 +5,7 @@ import 'package:eneo_fails/app/location/data/controller/bloc/location_bloc.dart'
 import 'package:eneo_fails/app/notification/data/controller/notification/notification_bloc.dart';
 import 'package:eneo_fails/app/notification/data/services/background_service.dart';
 import 'package:eneo_fails/app/outage/data/controller/eneo_outage/eneo_outage_bloc.dart';
+import 'package:eneo_fails/app/payment/logic/payment/payment_bloc.dart';
 import 'package:eneo_fails/app/permissions/data/bloc/permissions_bloc.dart';
 import 'package:eneo_fails/core/service_locators.dart';
 import 'package:eneo_fails/routes/router.dart';
@@ -44,6 +45,7 @@ class _EneoFailsAppState extends State<EneoFailsApp> {
         BlocProvider(create: (context) => getIt.get<NavigationBarBloc>()),
         BlocProvider(create: (context) => getIt.get<EneoOutageBloc>()),
         BlocProvider(create: (context) => getIt.get<DonationBloc>()),
+        BlocProvider(create: (context) => getIt.get<PaymentBloc>()),
         BlocProvider(create: (context) => getIt.get<LocationBloc>()),
         BlocProvider(create: (context) => getIt.get<PermissionsBloc>()),
         BlocProvider(create: (context) => getIt.get<NotificationBloc>()),
@@ -61,8 +63,12 @@ class _EneoFailsAppState extends State<EneoFailsApp> {
             useInheritedMediaQuery: true,
             designSize: Size(360, 690),
             builder: (context, child) {
-              final hasElectricity = context.read<EneoOutageBloc>().userOutage?.hasElectricity == true;
-              ThemeData theme = hasElectricity ? EneoOutageTheme.light() : EneoOutageTheme.dark();
+              final hasElectricity =
+                  context.read<EneoOutageBloc>().userOutage?.hasElectricity ==
+                      true;
+              ThemeData theme = hasElectricity
+                  ? EneoOutageTheme.light()
+                  : EneoOutageTheme.dark();
               return MaterialApp.router(
                 localizationsDelegates: context.localizationDelegates,
                 supportedLocales: context.supportedLocales,

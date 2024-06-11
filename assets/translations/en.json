@@ -43,5 +43,12 @@
         "donate_desc": "Donating to this project helps us build an AI that can better predict power outage in Cameroon.",
         "disclaimer": "Disclaimer",
         "disclaimer_desc": "The information provided here is provided by the Alert Eneo API and is not guaranteed to be accurate."
+    },
+    "donate": {
+        "support_us": "Support Us!",
+        "support_desc": "Supporting us, helps us build a better AI for predicting electricity outages in Cameroon",
+        "enter_amount": "Enter amount",
+        "thanks": "Thank you for donating {amount} to our project!",
+        "donate": "Donate"
     }
 }

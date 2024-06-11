@@ -9,7 +9,11 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AppSheet {
-  static baseBottomSheet({required BuildContext context, bool? enableDrag, bool? isDismissible, required Widget child}) {
+  static baseBottomSheet(
+      {required BuildContext context,
+      bool? enableDrag,
+      bool? isDismissible,
+      required Widget child}) {
     return showBarModalBottomSheet(
       // return showModalBottomSheet(
       overlayStyle: SystemUiOverlayStyle(
@@ -21,7 +25,8 @@ class AppSheet {
       context: context,
       barrierColor: EneoFailsColor.kDark.withOpacity(0.8),
       builder: (context) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: child,
       ),
       useRootNavigator: false,
@@ -52,9 +57,11 @@ class AppSheet {
             Future.delayed(Duration(milliseconds: 400), () {
               return SystemChrome.setSystemUIOverlayStyle(
                 SystemUiOverlayStyle(
-                  systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+                  systemNavigationBarColor:
+                      Theme.of(context).scaffoldBackgroundColor,
                   systemNavigationBarIconBrightness: Brightness.light,
-                  systemNavigationBarDividerColor: Theme.of(context).scaffoldBackgroundColor,
+                  systemNavigationBarDividerColor:
+                      Theme.of(context).scaffoldBackgroundColor,
                 ),
               );
             });
@@ -73,7 +80,11 @@ class AppSheet {
     );
   }
 
-  static showErrorSheet({required BuildContext context, required String desc, required String title, Function? onOkay}) {
+  static showErrorSheet(
+      {required BuildContext context,
+      required String desc,
+      required String title,
+      Function? onOkay}) {
     return simpleModal(
       context: context,
       height: 400.h,
@@ -89,16 +100,24 @@ class AppSheet {
               size: 90,
             ),
             kh20Spacer(),
-            Text(title, style: Theme.of(context).textTheme.displayMedium, textAlign: TextAlign.center),
+            Text(title,
+                style: Theme.of(context).textTheme.displayMedium,
+                textAlign: TextAlign.center),
             kh20Spacer(),
-            Text(desc, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+            Text(desc,
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center),
           ],
         ),
       ),
     );
   }
 
-  static showSuccessSheet({required BuildContext context, required String desc, required String title, Function? onOkay}) {
+  static showSuccessSheet(
+      {required BuildContext context,
+      required String desc,
+      required String title,
+      Function? onOkay}) {
     return simpleModal(
       context: context,
       height: 400.h,
@@ -114,9 +133,13 @@ class AppSheet {
               size: 90,
             ),
             kh20Spacer(),
-            Text(title, style: Theme.of(context).textTheme.displayMedium, textAlign: TextAlign.center),
+            Text(title,
+                style: Theme.of(context).textTheme.displayMedium,
+                textAlign: TextAlign.center),
             kh20Spacer(),
-            Text(desc, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+            Text(desc,
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center),
           ],
         ),
       ),
@@ -146,13 +169,17 @@ class AppSheet {
                 children: [
                   ListTile(
                     dense: true,
-                    leading: Text(outageRegions[i].name, style: Theme.of(context).textTheme.displaySmall),
+                    leading: Text(outageRegions[i].name,
+                        style: Theme.of(context).textTheme.displaySmall),
                     trailing: Container(
                       padding: EdgeInsets.all(2.r),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: outageRegions[i].id == selectedOutageRegions?.id ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
+                          color:
+                              outageRegions[i].id == selectedOutageRegions?.id
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).highlightColor,
                           width: 2.w,
                         ),
                       ),
@@ -160,7 +187,10 @@ class AppSheet {
                       width: 20.h,
                       child: CircleAvatar(
                         radius: 10.r,
-                        backgroundColor: outageRegions[i].id == selectedOutageRegions?.id ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
+                        backgroundColor:
+                            outageRegions[i].id == selectedOutageRegions?.id
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).highlightColor,
                       ),
                     ),
                   ),

@@ -55,7 +55,10 @@ class CityOutageCard extends StatelessWidget {
                     //   outage.status == true ? EneoFailsColor.primaryColor.withOpacity(0.9) : EneoFailsColor.kSuccess.withOpacity(0.9),
                     // ],
 
-                    colors: [Colors.black.withOpacity(0.4), EneoFailsColor.primaryColor.withOpacity(0.9)],
+                    colors: [
+                      Colors.black.withOpacity(0.4),
+                      EneoFailsColor.primaryColor.withOpacity(0.9)
+                    ],
                   ),
                 ),
               ),
@@ -88,7 +91,10 @@ class CardContent extends StatelessWidget {
           if (outage.region!.trim().isNotEmpty)
             Text(
               "${outage.region} : ${outage.ville} - ${outage.quartier}",
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: EneoFailsColor.kWhite),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(color: EneoFailsColor.kWhite),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -96,7 +102,10 @@ class CardContent extends StatelessWidget {
           khSpacer(10.h),
           Text(
             outage.observations ?? "--",
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: EneoFailsColor.kWhite),
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: EneoFailsColor.kWhite),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
@@ -113,7 +122,8 @@ class CardContent extends StatelessWidget {
               outageChip(
                 context: context,
                 icon: IconAssets.clock,
-                title: "${outage.progHeureDebut ?? ""} - ${outage.progHeureFin ?? ""}",
+                title:
+                    "${outage.progHeureDebut ?? ""} - ${outage.progHeureFin ?? ""}",
               ),
             ],
           ),

@@ -72,7 +72,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         children: [
                           Text(
                             LangUtil.trans(items[i].title),
-                            style: GoogleFonts.inter(fontSize: 25.sp, color: EneoFailsColor.kWhite, fontWeight: FontWeight.w700),
+                            style: GoogleFonts.inter(
+                                fontSize: 25.sp,
+                                color: EneoFailsColor.kWhite,
+                                fontWeight: FontWeight.w700),
                           ),
                         ],
                       ),
@@ -119,7 +122,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [EneoFailsColor.kDark.withOpacity(0), EneoFailsColor.kDark.withOpacity(1), EneoFailsColor.kDark],
+                  colors: [
+                    EneoFailsColor.kDark.withOpacity(0),
+                    EneoFailsColor.kDark.withOpacity(1),
+                    EneoFailsColor.kDark
+                  ],
                 ),
               ),
             ),
@@ -128,7 +135,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             top: -20,
             left: 0,
             right: 0,
-            child: Container(child: child, height: kHeight(context) / 1.2, width: kWidth(context)),
+            child: Container(
+                child: child,
+                height: kHeight(context) / 1.2,
+                width: kWidth(context)),
           ),
           Positioned(
             bottom: 0,
@@ -151,22 +161,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   GestureDetector(
                     onTap: () async {
                       if (currentIndex == items.length - 1) {
-                        bool hasNotificationPermission = await Permission.notification.isGranted;
-                        bool hasLocationPermission = await Permission.location.isGranted;
+                        bool hasNotificationPermission =
+                            await Permission.notification.isGranted;
+                        bool hasLocationPermission =
+                            await Permission.location.isGranted;
                         localStorageService.saveInit(true);
-                        if (hasNotificationPermission && hasLocationPermission) {
+                        if (hasNotificationPermission &&
+                            hasLocationPermission) {
                           context.go(AppRoutes.home);
                         } else
                           context.go(AppRoutes.permissions);
                       } else {
-                        controller.animateToPage(items.length, duration: Duration(milliseconds: 500), curve: Curves.linear);
+                        controller.animateToPage(items.length,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.linear);
                       }
                     },
                     child: AnimatedContainer(
                       duration: Durations.short4,
                       width: currentIndex == items.length - 1 ? 120.w : 50.w,
-                      padding: currentIndex == items.length - 1 ? kPadding(15.w, 15.w) : kPadding(15.w, 15.w),
-                      decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: radiusM()),
+                      padding: currentIndex == items.length - 1
+                          ? kPadding(12.w, 12.w)
+                          : kPadding(12.w, 12.w),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: radiusM()),
                       child: AnimatedSwitcher(
                         duration: Durations.short4,
                         child: currentIndex == items.length - 1
@@ -175,7 +194,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 overflow: TextOverflow.fade,
                                 LangUtil.trans("onboarding.get_started"),
                               )
-                            : Icon(Icons.arrow_forward, color: EneoFailsColor.kWhite, size: 20),
+                            : Icon(Icons.arrow_forward,
+                                color: EneoFailsColor.kWhite, size: 20),
                       ),
                     ),
                   )
@@ -199,7 +219,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       margin: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
         borderRadius: radiusL(),
-        color: isActive ? EneoFailsColor.kWhite : EneoFailsColor.kWhite.withOpacity(0.5),
+        color: isActive
+            ? EneoFailsColor.kWhite
+            : EneoFailsColor.kWhite.withOpacity(0.5),
       ),
     );
   }

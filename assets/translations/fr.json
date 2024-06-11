@@ -30,6 +30,25 @@
         "no_observation": "Aucune observation fournie !",
         "outages": "Coupures",
         "choose_locality": "Choisissez la localité de la coupure",
-        "no_outages_planned": "Aucun programme de construction prévu dans votre région"
+        "no_outages_planned": "Aucun programme de construction prévu dans votre région",
+        "some_outages": "Quelques coupures autour de votre ville !",
+        "view_all": "Voir tout"
+    },
+    "settings": {
+        "about_app": "À propos de l'application",
+        "about_desc": "Cette application est une solution provisoire au problème des coupures de courant au Cameroun. Elle n'est pas affiliée à Eneo Cameroun.",
+        "share_desc": "Salut \nDécouvrez cette application qui montre les coupures d'Eneo au Cameroun !",
+        "share_app": "Partager l'application",
+        "donate": "Faire un don pour soutenir",
+        "donate_desc": "Faire un don à ce projet nous aide à développer une IA qui peut mieux prédire les coupures de courant au Cameroun.",
+        "disclaimer": "Avertissement",
+        "disclaimer_desc": "Les informations fournies ici sont issues de l'API Alert Eneo et ne sont pas garanties comme étant exactes."
+    },
+    "donate": {
+        "support_us": "Soutenez-nous !",
+        "support_desc": "En nous soutenant, vous nous aidez à développer une meilleure IA pour prédire les coupures de courant au Cameroun.",
+        "enter_amount": "Entrez le montant",
+        "thanks": "Merci d'avoir fait un don de {amount} à notre projet !",
+        "donate": "Faire un don"
     }
 }

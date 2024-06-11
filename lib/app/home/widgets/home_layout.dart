@@ -31,7 +31,8 @@ class _HomeLayoutState extends State<HomeLayout> {
       print("HomeLayout and inactive ${focusNode.hasFocus}");
 
       if (!focusNode.hasFocus) {
-        Future.delayed(Duration(milliseconds: 500), () => setState(() => keyBoardOpen = focusNode.hasFocus));
+        Future.delayed(Duration(milliseconds: 500),
+            () => setState(() => keyBoardOpen = focusNode.hasFocus));
       } else
         setState(() => keyBoardOpen = focusNode.hasFocus);
     });
@@ -45,12 +46,15 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   finOutagesInRegion() {
     if (eneoOutageBloc.selectedRegion != null) {
-      eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.selectedRegion!));
+      eneoOutageBloc.add(SearchEneoOutageByRegionEvent(
+          region: eneoOutageBloc.selectedRegion!));
     } else {
-      eneoOutageBloc.add(SearchEneoOutageByRegionEvent(region: eneoOutageBloc.eneoOutageRegion.first));
+      eneoOutageBloc.add(SearchEneoOutageByRegionEvent(
+          region: eneoOutageBloc.eneoOutageRegion.first));
     }
     eneoOutageBloc.add(GetOutUserEneoOutageEvent(context));
-    eneoOutageBloc.add(GetOutEneoOutageEvent(regionId: eneoOutageBloc.defaultRegion?.id));
+    eneoOutageBloc
+        .add(GetOutEneoOutageEvent(regionId: eneoOutageBloc.defaultRegion?.id));
   }
 
   @override
@@ -77,7 +81,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                   right: kWidth(context) / 5,
                   child: AnimatedSwitcher(
                     duration: Duration(milliseconds: 500),
-                    child: !keyBoardOpen ? bottomBar(context, state.activeIndex) : SizedBox(),
+                    child: !keyBoardOpen
+                        ? bottomBar(context, state.activeIndex)
+                        : SizedBox(),
                   ),
                 ),
               ],
@@ -103,18 +109,35 @@ class _HomeLayoutState extends State<HomeLayout> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             // bottomIcon(context: context, icon: IconAssets.globe_search, index: 0, activeIndex: activeIndex),
-            bottomIcon(context: context, icon: IconAssets.power_search_icon, index: 0, activeIndex: activeIndex),
-            bottomIcon(context: context, icon: IconAssets.home, index: 1, activeIndex: activeIndex),
-            bottomIcon(context: context, icon: IconAssets.settings, index: 2, activeIndex: activeIndex),
+            bottomIcon(
+                context: context,
+                icon: IconAssets.power_search_icon,
+                index: 0,
+                activeIndex: activeIndex),
+            bottomIcon(
+                context: context,
+                icon: IconAssets.home,
+                index: 1,
+                activeIndex: activeIndex),
+            bottomIcon(
+                context: context,
+                icon: IconAssets.settings,
+                index: 2,
+                activeIndex: activeIndex),
           ],
         ),
       ),
     );
   }
 
-  GestureDetector bottomIcon({required BuildContext context, required int index, required String icon, required int activeIndex}) {
+  GestureDetector bottomIcon(
+      {required BuildContext context,
+      required int index,
+      required String icon,
+      required int activeIndex}) {
     return GestureDetector(
-      onTap: () => navigationBarBloc.add(NavigationBarChangeIndexEvent(activeIndex: index)),
+      onTap: () => navigationBarBloc
+          .add(NavigationBarChangeIndexEvent(activeIndex: index)),
       child: AnimatedScale(
         scale: activeIndex == index ? 1.5 : 1.2,
         duration: Duration(milliseconds: 200),
@@ -123,7 +146,9 @@ class _HomeLayoutState extends State<HomeLayout> {
           children: [
             SvgPicture.asset(
               icon,
-              color: activeIndex == index ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+              color: activeIndex == index
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).primaryColorDark,
             ),
             khSpacer(2.h),
             if (activeIndex == index)
@@ -132,7 +157,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                 height: 1.h,
                 decoration: BoxDecoration(
                   borderRadius: radiusM(),
-                  color: navigationBarBloc.state.activeIndex == index ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                  color: navigationBarBloc.state.activeIndex == index
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).primaryColorDark,
                 ),
               )
           ],
