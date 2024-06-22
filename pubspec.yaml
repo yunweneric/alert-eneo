@@ -62,8 +62,8 @@ dependencies:
   maps_launcher: ^2.2.1
   modal_bottom_sheet: ^3.0.0
   package_info_plus: ^6.0.0
-  # pay_unit_sdk: ^3.1.13
   permission_handler: ^11.3.1
+  rive_animated_icon: ^2.0.0
   share_plus: ^8.0.2
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
